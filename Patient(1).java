@@ -335,6 +335,11 @@ public class Patient {
 					anxietyLevel + drowsinessLevel + appetiteLevel + wellbeingLevel + breathLevel) / 9;
 			setPatientPainLevel(patientPriority);
 		}
+		//--------------------------------------------------
+		// Insert the data into the symptom ratings table
+		//--------------------------------------------------
+		INSERT INTO SYMPTOMRATINGS (NAME,PAINLEVEL,TIREDLEVEL,NAUSEALEVEL,DEPRESSIONLEVEL,ANXIETYLEVEL,DROWSINESSLEVEL,APPETITELEVEL,WELLBEINGLEVEL,BREATHLEVEL)
+		VALUES (patientName, painLevel, tiredLevel, nauseaLevel, depressionLevel, anxietyLevel, drowsinessLevel, appetiteLevel, wellbeingLevel, breathLevel); // We need some form of getter for the patient ID
 	}
 	
 	
