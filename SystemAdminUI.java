@@ -5,6 +5,7 @@
  */
 package UI;
 
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -499,10 +500,25 @@ public class SystemAdminUI extends javax.swing.JFrame {
         );
 
         jToggleButton3.setText("Confirm Remove");
+        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	 jToggleButton3ActionPerformed(evt);
+            }
+        });
 
         jToggleButton4.setText("Confirm Remove");
+        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	 jToggleButton4ActionPerformed(evt);
+            }
+        });
 
         logOutS.setText("Log Out");
+        logOutS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutSActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
@@ -567,7 +583,52 @@ public class SystemAdminUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    //here I add the data entered into the text fields when the add patient button is pressed
+    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {
+    	try{
+    		String sql = "delete from DoctorData where (firstname,lastname,email,address,birthdate) values (?,?,?,?,?)";
+    		Connection conn = sqliteConnection.dbConnector();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            
+            pst.setString(1, jTextField22.getText());
+            pst.setString(2, jTextField23.getText());
+            pst.setString(3, jTextField24.getText());
+            pst.setString(4, jTextField25.getText());
+            pst.setString(5, jTextField26.getText());
+            pst.execute();
+            
+            JOptionPane.showMessageDialog(null, "Removed");
+    	}
+    	catch(Exception e){
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+    }
+    
+    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+    	try{
+    		String sql = "delete from PatientData where (firstname,lastname,email,address,birthdate) values (?,?,?,?,?)";
+    		Connection conn = sqliteConnection.dbConnector();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            
+            pst.setString(1, jTextField27.getText());
+            pst.setString(2, jTextField28.getText());
+            pst.setString(3, jTextField29.getText());
+            pst.setString(4, jTextField30.getText());
+            pst.setString(5, jTextField31.getText());
+            pst.execute();
+            
+            JOptionPane.showMessageDialog(null, "Removed");
+    	}
+    	catch(Exception e){
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+    }
+    
+    private void logOutSActionPerformed(java.awt.event.ActionEvent evt) {
+    	JOptionPane.showMessageDialog(null, "You have succesfully logged out!");
+    	new LogInUI().setVisible(true);
+        this.setVisible(false);
+    }
+    
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         try{
         	String sql = "Insert into PatientData (firstname,address,birthdate,username,password,age,lastname,email) values (?,?,?,?,?,?,?,?)";
@@ -593,8 +654,28 @@ public class SystemAdminUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
+    	try{
+    		String sql = "Insert into DoctorData (firstname,address,birthdate,username,password,age,lastname,email) values (?,?,?,?,?,?,?,?)";
+    		Connection conn = sqliteConnection.dbConnector();
+        	PreparedStatement pst = conn.prepareStatement(sql);
+        
+        	pst.setString(1, jTextField15.getText());
+        	pst.setString(2, jTextField18.getText());
+        	pst.setString(3, jTextField19.getText());
+        	pst.setString(4, jTextField21.getText());
+        	pst.setString(5, jPasswordField3.getText());
+        	pst.setString(6, jTextField20.getText());
+        	pst.setString(7, jTextField16.getText());
+        	pst.setString(8, jTextField17.getText());
+        	pst.execute();
+        
+        	JOptionPane.showMessageDialog(null, "Saved");
+    	}
+    	catch(Exception e)
+    	{
+        	JOptionPane.showMessageDialog(null, e);
+    	}
+}//GEN-LAST:event_jToggleButton2ActionPerformed
 
     /**
      * @param args the command line arguments
