@@ -1,9 +1,12 @@
+package cse360;
+
 /*
- * To change this license header, choose License Headers in Project Properties.
+/ * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cse360;
+
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,12 +46,21 @@ public class DoctorUI extends javax.swing.JFrame {
         jInternalFrame1.setVisible(true);
 
         databaseD.setText("Database");
+        databaseD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+             databaseActionPerformed(evt);
+            }
+        });
 
         messagesPanelD.setBackground(new java.awt.Color(255, 255, 204));
 
         messagesButtonD.setText("Messages");
-
-        newMessagesInfoD.setText("There are X new messages");
+       /* messagesButtonD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+             messageActionPerformed(evt);
+            }
+        });*/
+        //newMessagesInfoD.setText("There are X new messages");
 
         javax.swing.GroupLayout messagesPanelDLayout = new javax.swing.GroupLayout(messagesPanelD);
         messagesPanelD.setLayout(messagesPanelDLayout);
@@ -72,6 +84,11 @@ public class DoctorUI extends javax.swing.JFrame {
         );
 
         logOutD.setText("Log Out");
+        logOutD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutDActionPerformed(evt);
+            }
+        });
 
         viewPatientsD.setText("View Patients");
 
@@ -175,6 +192,24 @@ public class DoctorUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Event Listener for the database button
+    private void databaseActionPerformed(java.awt.event.ActionEvent evt) {
+        new DoctorDatabseUI().setVisible(true);
+        this.setVisible(false);
+    }
+    
+    /* Event Listener for the messages button. needs some way to track current user
+    private void messageActionPerformed(java.awt.event.ActionEvent evt) {
+        new MessagesUI().setVisible(true);
+        this.setVisible(false);
+    }*/
+    
+    //Event Listener for the logout button
+    private void logOutDActionPerformed(java.awt.event.ActionEvent evt) {
+    	JOptionPane.showMessageDialog(null, "You have succesfully logged out!");
+    	new LogInUI().setVisible(true);
+        this.setVisible(false);
+    }
     /**
      * @param args the command line arguments
      */

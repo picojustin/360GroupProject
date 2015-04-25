@@ -62,7 +62,7 @@
                   <Component id="titleLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                   <Component id="logInPanel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="294" max="32767" attributes="0"/>
+                  <EmptySpace pref="322" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -143,6 +143,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Username"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usernameEntryActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="forgotUsernamePasswordButton">
               <Properties>
@@ -151,6 +154,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="forgotUsernamePasswordButtonActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="LogInUI_forgotUsernamePasswordButton"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JPasswordField" name="passwordEntry">
               <Properties>

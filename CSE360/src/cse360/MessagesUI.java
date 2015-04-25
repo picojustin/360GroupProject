@@ -5,6 +5,8 @@
  */
 package cse360;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Jefferson
@@ -48,7 +50,13 @@ public class MessagesUI extends javax.swing.JFrame {
         jInternalFrame1.setVisible(true);
 
         backButtonM.setText("<< Back");
+        backButtonM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
 
+        
         messagesLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         messagesLabel.setText("Messages");
 
@@ -104,6 +112,12 @@ public class MessagesUI extends javax.swing.JFrame {
         composeMessagePane.setViewportView(composeMessageArea);
 
         sendButton.setText("Send");
+        sendButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendButtonActionPerformed(evt);
+            }
+        });
+
 
         javax.swing.GroupLayout sendMessagePanelLayout = new javax.swing.GroupLayout(sendMessagePanel);
         sendMessagePanel.setLayout(sendMessagePanelLayout);
@@ -192,6 +206,15 @@ public class MessagesUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    	JOptionPane.showMessageDialog(null, "Message Sent!");
+    }	
+    
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {
+        new PatientUI().setVisible(true);
+        this.setVisible(false);
+    }
 
     /**
      * @param args the command line arguments

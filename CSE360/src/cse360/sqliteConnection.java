@@ -8,8 +8,8 @@ public class sqliteConnection {
 	public static Connection dbConnector(){
 		try{
 			Class.forName("org.sqlite.JDBC");
-			Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Jefferson\\Desktop\\CSE360PROJECT\\QuickCareDatabase.sqlite");
-			JOptionPane.showMessageDialog(null, "Success!");
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Jefferson\\Desktop\\CSE360PROJECT\\360GroupProject\\CSE360\\PatientCareSystemDatabase.sqlite");
+			//JOptionPane.showMessageDialog(null, "Success!");
 			return conn;
 		}
 		

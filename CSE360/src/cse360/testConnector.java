@@ -14,18 +14,18 @@ public class testConnector {
 	    
 	    	Connection connection = sqliteConnection.dbConnector();
 	      stmt = connection.createStatement();
-	      ResultSet rs = stmt.executeQuery( "SELECT * FROM PatientTable;" );
+	      ResultSet rs = stmt.executeQuery( "SELECT * FROM PatientData;" );
 	      while ( rs.next() ) {
 	    	  
 	         String name = rs.getString("name");
-	         int  age = rs.getInt("age");
 	         String username  = rs.getString("username");
 	         String  password = rs.getString("password");
+	         int  age = rs.getInt("age");
 	         
 	         System.out.println( "NAME = " + name );
-	         System.out.println( "AGE = " + age );
 	         System.out.println( "USERNAME = " + username );
 	         System.out.println( "PASSWORD = " + password );
+	         System.out.println( "AGE = " + age );
 	         System.out.println();
 	         
 	      }

@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package cse360;
+import java.sql.*;
+
+import net.proteanit.sql.DbUtils;
+import Classes.User;
 
 /**
  *
@@ -16,6 +20,7 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
      */
     public DoctorDatabseUI() {
         initComponents();
+        
     }
 
     /**
@@ -41,70 +46,31 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jInternalFrame1.setVisible(true);
-
-        patientHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Date", "Type"
-            }
-        ));
+        
+        Connection connection = sqliteConnection.dbConnector();
+        try{
+        	String name = User.getName();
+        	String query="select firstname,lastname,email,age,birthdate from UserData where doctor=?";
+        	PreparedStatement pst = connection.prepareStatement(query);
+			pst.setString(1, name);
+        	ResultSet rs = pst.executeQuery();
+       
+        	patientHistoryTable.setModel(DbUtils.resultSetToTableModel(rs));
+        }
+        catch (Exception e){
+        	e.printStackTrace();
+        }
         patientHistoryPane.setViewportView(patientHistoryTable);
 
         historyLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         historyLabel.setText("Patient History");
 
         backButtonDD.setText("<< Back");
+        backButtonDD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
 
         currentPatientPane.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -127,7 +93,7 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+      /*  jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -183,7 +149,7 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
             new String [] {
                 "Name"
             }
-        ));
+        ));*/
         patientListTable.setViewportView(jTable2);
 
         listLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -246,7 +212,13 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    // Event Listener for the back button
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {
+        new DoctorUI().setVisible(true);
+        this.setVisible(false);
+    }	
+    
     /**
      * @param args the command line arguments
      */

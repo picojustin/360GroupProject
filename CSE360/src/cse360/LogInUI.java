@@ -1,19 +1,25 @@
+package cse360;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cse360;
 
 /**
  *
  * @author Jefferson
  */
+import java.awt.Cursor;
 import java.sql.*;
+
 import javax.swing.*;
+
+import Classes.User;
 public class LogInUI extends javax.swing.JFrame {
 ResultSet re = null;
 PreparedStatement pst = null;
+
     /**
      * Creates new form LogInUI
      */
@@ -54,6 +60,11 @@ PreparedStatement pst = null;
         passwordLabel.setText("Password:");
 
         usernameEntry.setText("Username");
+        usernameEntry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameEntryActionPerformed(evt);
+            }
+        });
 
         forgotUsernamePasswordButton.setText("Forgot Username/Password?");
         forgotUsernamePasswordButton.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +144,7 @@ PreparedStatement pst = null;
                 .addComponent(titleLabel)
                 .addGap(75, 75, 75)
                 .addComponent(logInPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(294, Short.MAX_VALUE))
+                .addContainerGap(322, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -149,14 +160,18 @@ PreparedStatement pst = null;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void forgotUsernamePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgotUsernamePasswordButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_forgotUsernamePasswordButtonActionPerformed
-
+    
+    // This is the event checker for the forgot user name and password button
+    private void forgotUsernamePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                             
+                
+                new GetUserInfoUI().setVisible(true);
+                //this.setVisible(false);
+        }
+    
+    // This is the event checker for the log in button
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
         // TODO add your handling code here:
-        String sql = "select * from PatientTable where username=? and password=?";
+        String sql = "select * from UserData where username=? and password=?";
         try
         {
             Connection conn = sqliteConnection.dbConnector();
@@ -164,12 +179,25 @@ PreparedStatement pst = null;
             pst.setString(1, usernameEntry.getText());
             pst.setString(2, passwordEntry.getText());
             re = pst.executeQuery();
+            
             if(re.next())
             {
-                JOptionPane.showMessageDialog(null, "Info is correct!");
-                new PatientUI().setVisible(true);
-                this.setVisible(false);
+                User.setName(re.getString("firstname"));
+                User.setRole(re.getString("role"));
+                String role = User.getRole();
+            	if (role.equals("patient")){
+            		JOptionPane.showMessageDialog(null, "Info is correct!");   
+            		new PatientUI().setVisible(true);
+            		this.dispose();
+            	}
+            	
+                else if (role.equals("doctor")){
+                    JOptionPane.showMessageDialog(null, "Info is correct!");   
+                    new DoctorUI().setVisible(true);
+                    this.dispose();
+                }
             }
+            
             else
             {
                 JOptionPane.showMessageDialog(null, "Info is incorrect!");
@@ -180,6 +208,10 @@ PreparedStatement pst = null;
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_logInButtonActionPerformed
+
+    private void usernameEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameEntryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameEntryActionPerformed
 
     /**
      * @param args the command line arguments

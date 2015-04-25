@@ -5,6 +5,13 @@
  */
 package cse360;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import net.proteanit.sql.DbUtils;
+import Classes.User;
+
 /**
  *
  * @author Jefferson
@@ -38,67 +45,29 @@ public class PatientDatabseUI extends javax.swing.JFrame {
         jInternalFrame1.setVisible(true);
 
         backButtonD.setText("<< Back");
+        backButtonD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+
 
         reportsLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         reportsLabel.setText("Report History");
 
-        reportsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Date", "Type"
-            }
-        ));
+        Connection connection = sqliteConnection.dbConnector();
+        try{      
+        	String name = User.getName();
+        	String query="select * from SymptomRatings where name=?";
+        	PreparedStatement pst = connection.prepareStatement(query);
+			pst.setString(1, name);
+        	ResultSet rs = pst.executeQuery();
+       
+        	reportsTable.setModel(DbUtils.resultSetToTableModel(rs));
+        }
+        catch (Exception e){
+        	e.printStackTrace();
+        }
         reportsPane.setViewportView(reportsTable);
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
@@ -145,7 +114,13 @@ public class PatientDatabseUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    // Event Listener for the back buttons
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {
+        new PatientUI().setVisible(true);
+        this.setVisible(false);
+    }	
+    
     /**
      * @param args the command line arguments
      */

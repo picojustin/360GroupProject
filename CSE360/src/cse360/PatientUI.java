@@ -5,12 +5,20 @@
  */
 package cse360;
 
+import java.sql.*;
+import javax.swing.*;
+import cse360.sqliteConnection;
+import Classes.User;
+
 /**
  *
  * @author Jefferson
  */
 public class PatientUI extends javax.swing.JFrame {
 
+    ResultSet re = null;
+    PreparedStatement pst = null;
+    
     /**
      * Creates new form NewJFrame
      */
@@ -41,21 +49,10 @@ public class PatientUI extends javax.swing.JFrame {
         logOutP = new javax.swing.JButton();
         emergencyP = new javax.swing.JButton();
         painAndSymptoms = new javax.swing.JPanel();
-        yesNo = new javax.swing.JPanel();
-        yesNoLabel = new javax.swing.JLabel();
         symptoms = new javax.swing.JPanel();
         symptomsLabel = new javax.swing.JLabel();
         severity = new javax.swing.JPanel();
         severityLabel = new javax.swing.JLabel();
-        painYN = new javax.swing.JCheckBox();
-        tirednessYN = new javax.swing.JCheckBox();
-        nauseaYN = new javax.swing.JCheckBox();
-        depressionYN = new javax.swing.JCheckBox();
-        anxietyYN = new javax.swing.JCheckBox();
-        drowsinessYN = new javax.swing.JCheckBox();
-        appetiteYN = new javax.swing.JCheckBox();
-        wellbeingYN = new javax.swing.JCheckBox();
-        breathYN = new javax.swing.JCheckBox();
         pain = new javax.swing.JLabel();
         tiredness = new javax.swing.JLabel();
         nausea = new javax.swing.JLabel();
@@ -65,96 +62,6 @@ public class PatientUI extends javax.swing.JFrame {
         appetite = new javax.swing.JLabel();
         wellbeing = new javax.swing.JLabel();
         breath = new javax.swing.JLabel();
-        pain1 = new javax.swing.JRadioButton();
-        pain2 = new javax.swing.JRadioButton();
-        pain3 = new javax.swing.JRadioButton();
-        pain4 = new javax.swing.JRadioButton();
-        pain5 = new javax.swing.JRadioButton();
-        pain6 = new javax.swing.JRadioButton();
-        pain7 = new javax.swing.JRadioButton();
-        pain8 = new javax.swing.JRadioButton();
-        pain9 = new javax.swing.JRadioButton();
-        pain10 = new javax.swing.JRadioButton();
-        tiredness5 = new javax.swing.JRadioButton();
-        tiredness4 = new javax.swing.JRadioButton();
-        tiredness3 = new javax.swing.JRadioButton();
-        tiredness2 = new javax.swing.JRadioButton();
-        tiredness1 = new javax.swing.JRadioButton();
-        tiredness9 = new javax.swing.JRadioButton();
-        tiredness10 = new javax.swing.JRadioButton();
-        tiredness7 = new javax.swing.JRadioButton();
-        tiredness8 = new javax.swing.JRadioButton();
-        tiredness6 = new javax.swing.JRadioButton();
-        nausea4 = new javax.swing.JRadioButton();
-        nausea5 = new javax.swing.JRadioButton();
-        nausea2 = new javax.swing.JRadioButton();
-        nausea3 = new javax.swing.JRadioButton();
-        nausea1 = new javax.swing.JRadioButton();
-        nausea9 = new javax.swing.JRadioButton();
-        nausea10 = new javax.swing.JRadioButton();
-        nausea7 = new javax.swing.JRadioButton();
-        nausea8 = new javax.swing.JRadioButton();
-        nausea6 = new javax.swing.JRadioButton();
-        depression4 = new javax.swing.JRadioButton();
-        depression5 = new javax.swing.JRadioButton();
-        depression6 = new javax.swing.JRadioButton();
-        depression8 = new javax.swing.JRadioButton();
-        depression7 = new javax.swing.JRadioButton();
-        depression10 = new javax.swing.JRadioButton();
-        depression9 = new javax.swing.JRadioButton();
-        depression1 = new javax.swing.JRadioButton();
-        depression2 = new javax.swing.JRadioButton();
-        depression3 = new javax.swing.JRadioButton();
-        anxiety2 = new javax.swing.JRadioButton();
-        anxiety3 = new javax.swing.JRadioButton();
-        anxiety9 = new javax.swing.JRadioButton();
-        anxiety1 = new javax.swing.JRadioButton();
-        anxiety7 = new javax.swing.JRadioButton();
-        anxiety10 = new javax.swing.JRadioButton();
-        anxiety8 = new javax.swing.JRadioButton();
-        anxiety6 = new javax.swing.JRadioButton();
-        anxiety5 = new javax.swing.JRadioButton();
-        anxiety4 = new javax.swing.JRadioButton();
-        drowsiness2 = new javax.swing.JRadioButton();
-        drowsiness3 = new javax.swing.JRadioButton();
-        drowsiness9 = new javax.swing.JRadioButton();
-        drowsiness1 = new javax.swing.JRadioButton();
-        drowsiness4 = new javax.swing.JRadioButton();
-        drowsiness10 = new javax.swing.JRadioButton();
-        drowsiness8 = new javax.swing.JRadioButton();
-        drowsiness6 = new javax.swing.JRadioButton();
-        drowsiness5 = new javax.swing.JRadioButton();
-        drowsiness7 = new javax.swing.JRadioButton();
-        appetite2 = new javax.swing.JRadioButton();
-        appetite3 = new javax.swing.JRadioButton();
-        appetite9 = new javax.swing.JRadioButton();
-        appetite1 = new javax.swing.JRadioButton();
-        appetite5 = new javax.swing.JRadioButton();
-        appetite7 = new javax.swing.JRadioButton();
-        appetite8 = new javax.swing.JRadioButton();
-        appetite6 = new javax.swing.JRadioButton();
-        appetite10 = new javax.swing.JRadioButton();
-        appetite4 = new javax.swing.JRadioButton();
-        wellbeing9 = new javax.swing.JRadioButton();
-        wellbeing1 = new javax.swing.JRadioButton();
-        wellbeing2 = new javax.swing.JRadioButton();
-        wellbeing3 = new javax.swing.JRadioButton();
-        wellbeing6 = new javax.swing.JRadioButton();
-        wellbeing10 = new javax.swing.JRadioButton();
-        wellbeing4 = new javax.swing.JRadioButton();
-        wellbeing5 = new javax.swing.JRadioButton();
-        wellbeing8 = new javax.swing.JRadioButton();
-        wellbeing7 = new javax.swing.JRadioButton();
-        breath7 = new javax.swing.JRadioButton();
-        breath8 = new javax.swing.JRadioButton();
-        breath4 = new javax.swing.JRadioButton();
-        breath5 = new javax.swing.JRadioButton();
-        breath6 = new javax.swing.JRadioButton();
-        breath10 = new javax.swing.JRadioButton();
-        breath9 = new javax.swing.JRadioButton();
-        breath1 = new javax.swing.JRadioButton();
-        breath2 = new javax.swing.JRadioButton();
-        breath3 = new javax.swing.JRadioButton();
         painInfo = new javax.swing.JButton();
         tirednessInfo = new javax.swing.JButton();
         nauseaInfo = new javax.swing.JButton();
@@ -164,18 +71,34 @@ public class PatientUI extends javax.swing.JFrame {
         appetiteInfo = new javax.swing.JButton();
         wellbeingInfo = new javax.swing.JButton();
         breathInfo = new javax.swing.JButton();
-        submitButoon = new javax.swing.JButton();
-        messagesPanelP = new javax.swing.JPanel();
-        messagesButtonP = new javax.swing.JButton();
-        newMessagesInfoP = new javax.swing.JLabel();
+        PainSymptomBox = new javax.swing.JComboBox();
+        TirednessSymptomBox = new javax.swing.JComboBox();
+        NauseaSymptomBox = new javax.swing.JComboBox();
+        DepressionSymptomBox = new javax.swing.JComboBox();
+        AnxietySymptomBox = new javax.swing.JComboBox();
+        DrowsinessSymptomBox = new javax.swing.JComboBox();
+        AppetiteSymptomBox = new javax.swing.JComboBox();
+        WellbeingSymptomBox = new javax.swing.JComboBox();
+        ShortBreathSymptomBox = new javax.swing.JComboBox();
+        submitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jInternalFrame1.setVisible(true);
 
-        databaseP.setText("Database");
+        databaseP.setText("View Medical Record");
+        databaseP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                databasePActionPerformed(evt);
+            }
+        });
 
         logOutP.setText("Log Out");
+        logOutP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutPActionPerformed(evt);
+            }
+        });
 
         emergencyP.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         emergencyP.setText("Emergency");
@@ -186,28 +109,6 @@ public class PatientUI extends javax.swing.JFrame {
         });
 
         painAndSymptoms.setBackground(new java.awt.Color(255, 255, 255));
-
-        yesNo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-
-        yesNoLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        yesNoLabel.setText("Yes/No");
-
-        javax.swing.GroupLayout yesNoLayout = new javax.swing.GroupLayout(yesNo);
-        yesNo.setLayout(yesNoLayout);
-        yesNoLayout.setHorizontalGroup(
-            yesNoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(yesNoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(yesNoLabel)
-                .addContainerGap(50, Short.MAX_VALUE))
-        );
-        yesNoLayout.setVerticalGroup(
-            yesNoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, yesNoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(yesNoLabel)
-                .addContainerGap())
-        );
 
         symptoms.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
@@ -243,7 +144,7 @@ public class PatientUI extends javax.swing.JFrame {
             .addGroup(severityLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(severityLabel)
-                .addContainerGap(346, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         severityLayout.setVerticalGroup(
             severityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,276 +172,6 @@ public class PatientUI extends javax.swing.JFrame {
 
         breath.setText("Shortness of Breath");
 
-        PainSeverity.add(pain1);
-        pain1.setText("1");
-
-        PainSeverity.add(pain2);
-        pain2.setText("2");
-
-        PainSeverity.add(pain3);
-        pain3.setText("3");
-
-        PainSeverity.add(pain4);
-        pain4.setText("4");
-
-        PainSeverity.add(pain5);
-        pain5.setText("5");
-
-        PainSeverity.add(pain6);
-        pain6.setText("6");
-
-        PainSeverity.add(pain7);
-        pain7.setText("7");
-
-        PainSeverity.add(pain8);
-        pain8.setText("8");
-
-        PainSeverity.add(pain9);
-        pain9.setText("9");
-
-        PainSeverity.add(pain10);
-        pain10.setText("10");
-
-        TirednessSeverity.add(tiredness5);
-        tiredness5.setText("5");
-
-        TirednessSeverity.add(tiredness4);
-        tiredness4.setText("4");
-
-        TirednessSeverity.add(tiredness3);
-        tiredness3.setText("3");
-
-        TirednessSeverity.add(tiredness2);
-        tiredness2.setText("2");
-
-        TirednessSeverity.add(tiredness1);
-        tiredness1.setText("1");
-
-        TirednessSeverity.add(tiredness9);
-        tiredness9.setText("9");
-
-        TirednessSeverity.add(tiredness10);
-        tiredness10.setText("10");
-
-        TirednessSeverity.add(tiredness7);
-        tiredness7.setText("7");
-
-        TirednessSeverity.add(tiredness8);
-        tiredness8.setText("8");
-
-        TirednessSeverity.add(tiredness6);
-        tiredness6.setText("6");
-
-        NauseaSeverity.add(nausea4);
-        nausea4.setText("4");
-
-        NauseaSeverity.add(nausea5);
-        nausea5.setText("5");
-
-        NauseaSeverity.add(nausea2);
-        nausea2.setText("2");
-
-        NauseaSeverity.add(nausea3);
-        nausea3.setText("3");
-
-        NauseaSeverity.add(nausea1);
-        nausea1.setText("1");
-
-        NauseaSeverity.add(nausea9);
-        nausea9.setText("9");
-
-        NauseaSeverity.add(nausea10);
-        nausea10.setText("10");
-
-        NauseaSeverity.add(nausea7);
-        nausea7.setText("7");
-
-        NauseaSeverity.add(nausea8);
-        nausea8.setText("8");
-
-        NauseaSeverity.add(nausea6);
-        nausea6.setText("6");
-
-        DepressionSeverity.add(depression4);
-        depression4.setText("4");
-
-        DepressionSeverity.add(depression5);
-        depression5.setText("5");
-
-        DepressionSeverity.add(depression6);
-        depression6.setText("6");
-
-        DepressionSeverity.add(depression8);
-        depression8.setText("8");
-
-        DepressionSeverity.add(depression7);
-        depression7.setText("7");
-
-        DepressionSeverity.add(depression10);
-        depression10.setText("10");
-
-        DepressionSeverity.add(depression9);
-        depression9.setText("9");
-
-        DepressionSeverity.add(depression1);
-        depression1.setText("1");
-
-        DepressionSeverity.add(depression2);
-        depression2.setText("2");
-
-        DepressionSeverity.add(depression3);
-        depression3.setText("3");
-
-        AnxietySeverity.add(anxiety2);
-        anxiety2.setText("2");
-
-        AnxietySeverity.add(anxiety3);
-        anxiety3.setText("3");
-
-        AnxietySeverity.add(anxiety9);
-        anxiety9.setText("9");
-
-        AnxietySeverity.add(anxiety1);
-        anxiety1.setText("1");
-
-        AnxietySeverity.add(anxiety7);
-        anxiety7.setText("7");
-
-        AnxietySeverity.add(anxiety10);
-        anxiety10.setText("10");
-
-        AnxietySeverity.add(anxiety8);
-        anxiety8.setText("8");
-
-        AnxietySeverity.add(anxiety6);
-        anxiety6.setText("6");
-
-        AnxietySeverity.add(anxiety5);
-        anxiety5.setText("5");
-
-        AnxietySeverity.add(anxiety4);
-        anxiety4.setText("4");
-
-        DrowsinessSeverity.add(drowsiness2);
-        drowsiness2.setText("2");
-
-        DrowsinessSeverity.add(drowsiness3);
-        drowsiness3.setText("3");
-
-        DrowsinessSeverity.add(drowsiness9);
-        drowsiness9.setText("9");
-
-        DrowsinessSeverity.add(drowsiness1);
-        drowsiness1.setText("1");
-
-        DrowsinessSeverity.add(drowsiness4);
-        drowsiness4.setText("4");
-
-        DrowsinessSeverity.add(drowsiness10);
-        drowsiness10.setText("10");
-
-        DrowsinessSeverity.add(drowsiness8);
-        drowsiness8.setText("8");
-
-        DrowsinessSeverity.add(drowsiness6);
-        drowsiness6.setText("6");
-
-        DrowsinessSeverity.add(drowsiness5);
-        drowsiness5.setText("5");
-
-        DrowsinessSeverity.add(drowsiness7);
-        drowsiness7.setText("7");
-
-        AppetiteSeverity.add(appetite2);
-        appetite2.setText("2");
-
-        AppetiteSeverity.add(appetite3);
-        appetite3.setText("3");
-
-        AppetiteSeverity.add(appetite9);
-        appetite9.setText("9");
-
-        AppetiteSeverity.add(appetite1);
-        appetite1.setText("1");
-
-        AppetiteSeverity.add(appetite5);
-        appetite5.setText("5");
-
-        AppetiteSeverity.add(appetite7);
-        appetite7.setText("7");
-
-        AppetiteSeverity.add(appetite8);
-        appetite8.setText("8");
-
-        AppetiteSeverity.add(appetite6);
-        appetite6.setText("6");
-
-        AppetiteSeverity.add(appetite10);
-        appetite10.setText("10");
-
-        AppetiteSeverity.add(appetite4);
-        appetite4.setText("4");
-
-        WellbeingSeverity.add(wellbeing9);
-        wellbeing9.setText("9");
-
-        WellbeingSeverity.add(wellbeing1);
-        wellbeing1.setText("1");
-
-        WellbeingSeverity.add(wellbeing2);
-        wellbeing2.setText("2");
-
-        WellbeingSeverity.add(wellbeing3);
-        wellbeing3.setText("3");
-
-        WellbeingSeverity.add(wellbeing6);
-        wellbeing6.setText("6");
-
-        WellbeingSeverity.add(wellbeing10);
-        wellbeing10.setText("10");
-
-        WellbeingSeverity.add(wellbeing4);
-        wellbeing4.setText("4");
-
-        WellbeingSeverity.add(wellbeing5);
-        wellbeing5.setText("5");
-
-        WellbeingSeverity.add(wellbeing8);
-        wellbeing8.setText("8");
-
-        WellbeingSeverity.add(wellbeing7);
-        wellbeing7.setText("7");
-
-        BreathSeverity.add(breath7);
-        breath7.setText("7");
-
-        BreathSeverity.add(breath8);
-        breath8.setText("8");
-
-        BreathSeverity.add(breath4);
-        breath4.setText("4");
-
-        BreathSeverity.add(breath5);
-        breath5.setText("5");
-
-        BreathSeverity.add(breath6);
-        breath6.setText("6");
-
-        BreathSeverity.add(breath10);
-        breath10.setText("10");
-
-        BreathSeverity.add(breath9);
-        breath9.setText("9");
-
-        BreathSeverity.add(breath1);
-        breath1.setText("1");
-
-        BreathSeverity.add(breath2);
-        breath2.setText("2");
-
-        BreathSeverity.add(breath3);
-        breath3.setText("3");
-
         painInfo.setText("?");
 
         tirednessInfo.setText("?");
@@ -556,29 +187,83 @@ public class PatientUI extends javax.swing.JFrame {
         appetiteInfo.setText("?");
 
         wellbeingInfo.setText("?");
+        wellbeingInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wellbeingInfoActionPerformed(evt);
+            }
+        });
 
         breathInfo.setText("?");
+
+        PainSymptomBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        PainSymptomBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PainSymptomBoxActionPerformed(evt);
+            }
+        });
+
+        TirednessSymptomBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        TirednessSymptomBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TirednessSymptomBoxActionPerformed(evt);
+            }
+        });
+
+        NauseaSymptomBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        NauseaSymptomBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NauseaSymptomBoxActionPerformed(evt);
+            }
+        });
+
+        DepressionSymptomBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        DepressionSymptomBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DepressionSymptomBoxActionPerformed(evt);
+            }
+        });
+
+        AnxietySymptomBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        AnxietySymptomBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnxietySymptomBoxActionPerformed(evt);
+            }
+        });
+
+        DrowsinessSymptomBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        DrowsinessSymptomBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DrowsinessSymptomBoxActionPerformed(evt);
+            }
+        });
+
+        AppetiteSymptomBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        AppetiteSymptomBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AppetiteSymptomBoxActionPerformed(evt);
+            }
+        });
+
+        WellbeingSymptomBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        WellbeingSymptomBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                WellbeingSymptomBoxActionPerformed(evt);
+            }
+        });
+
+        ShortBreathSymptomBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        ShortBreathSymptomBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ShortBreathSymptomBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painAndSymptomsLayout = new javax.swing.GroupLayout(painAndSymptoms);
         painAndSymptoms.setLayout(painAndSymptomsLayout);
         painAndSymptomsLayout.setHorizontalGroup(
             painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painAndSymptomsLayout.createSequentialGroup()
-                .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(yesNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(painAndSymptomsLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(painYN)
-                            .addComponent(tirednessYN)
-                            .addComponent(nauseaYN)
-                            .addComponent(depressionYN)
-                            .addComponent(anxietyYN)
-                            .addComponent(drowsinessYN)
-                            .addComponent(appetiteYN)
-                            .addComponent(wellbeingYN)
-                            .addComponent(breathYN))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(painAndSymptomsLayout.createSequentialGroup()
                         .addComponent(breath)
@@ -617,414 +302,117 @@ public class PatientUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(painInfo))
                     .addComponent(symptoms, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painAndSymptomsLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                    .addComponent(severity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painAndSymptomsLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painAndSymptomsLayout.createSequentialGroup()
-                                .addComponent(pain1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pain2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pain3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pain4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pain5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pain6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pain7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pain8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pain9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pain10))
-                            .addGroup(painAndSymptomsLayout.createSequentialGroup()
-                                .addComponent(tiredness1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tiredness2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tiredness3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tiredness4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tiredness5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tiredness6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tiredness7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tiredness8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tiredness9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tiredness10))
-                            .addGroup(painAndSymptomsLayout.createSequentialGroup()
-                                .addComponent(nausea1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nausea2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nausea3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nausea4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nausea5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nausea6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nausea7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nausea8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nausea9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nausea10))
-                            .addGroup(painAndSymptomsLayout.createSequentialGroup()
-                                .addComponent(depression1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(depression2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(depression3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(depression4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(depression5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(depression6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(depression7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(depression8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(depression9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(depression10))
-                            .addGroup(painAndSymptomsLayout.createSequentialGroup()
-                                .addComponent(anxiety1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(anxiety2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(anxiety3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(anxiety4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(anxiety5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(anxiety6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(anxiety7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(anxiety8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(anxiety9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(anxiety10))
-                            .addGroup(painAndSymptomsLayout.createSequentialGroup()
-                                .addComponent(drowsiness1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(drowsiness2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(drowsiness3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(drowsiness4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(drowsiness5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(drowsiness6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(drowsiness7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(drowsiness8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(drowsiness9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(drowsiness10))
-                            .addGroup(painAndSymptomsLayout.createSequentialGroup()
-                                .addComponent(appetite1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(appetite2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(appetite3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(appetite4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(appetite5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(appetite6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(appetite7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(appetite8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(appetite9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(appetite10))
-                            .addGroup(painAndSymptomsLayout.createSequentialGroup()
-                                .addComponent(wellbeing1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(wellbeing2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(wellbeing3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(wellbeing4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(wellbeing5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(wellbeing6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(wellbeing7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(wellbeing8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(wellbeing9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(wellbeing10))
-                            .addGroup(painAndSymptomsLayout.createSequentialGroup()
-                                .addComponent(breath1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(breath2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(breath3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(breath4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(breath5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(breath6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(breath7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(breath8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(breath9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(breath10)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(painAndSymptomsLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(severity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                            .addComponent(PainSymptomBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TirednessSymptomBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(NauseaSymptomBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DepressionSymptomBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AnxietySymptomBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DrowsinessSymptomBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AppetiteSymptomBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(WellbeingSymptomBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ShortBreathSymptomBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         painAndSymptomsLayout.setVerticalGroup(
             painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painAndSymptomsLayout.createSequentialGroup()
                 .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(yesNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(symptoms, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(severity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(painYN)
                     .addComponent(pain)
-                    .addComponent(pain1)
-                    .addComponent(pain2)
-                    .addComponent(pain3)
-                    .addComponent(pain4)
-                    .addComponent(pain5)
-                    .addComponent(pain6)
-                    .addComponent(pain7)
-                    .addComponent(pain8)
-                    .addComponent(pain9)
-                    .addComponent(pain10)
-                    .addComponent(painInfo))
+                    .addComponent(painInfo)
+                    .addComponent(PainSymptomBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tiredness1)
-                        .addComponent(tiredness2)
-                        .addComponent(tiredness3)
-                        .addComponent(tiredness4)
-                        .addComponent(tiredness5)
-                        .addComponent(tiredness6)
-                        .addComponent(tiredness7)
-                        .addComponent(tiredness8)
-                        .addComponent(tiredness9)
-                        .addComponent(tiredness10)
-                        .addComponent(tirednessInfo))
-                    .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tirednessYN)
-                        .addComponent(tiredness)))
+                        .addComponent(tirednessInfo)
+                        .addComponent(TirednessSymptomBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tiredness))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(nausea1)
-                        .addComponent(nausea2)
-                        .addComponent(nausea3)
-                        .addComponent(nausea4)
-                        .addComponent(nausea5)
-                        .addComponent(nausea6)
-                        .addComponent(nausea7)
-                        .addComponent(nausea8)
-                        .addComponent(nausea9)
-                        .addComponent(nausea10)
-                        .addComponent(nauseaInfo))
-                    .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(nauseaYN)
-                        .addComponent(nausea)))
+                        .addComponent(nauseaInfo)
+                        .addComponent(NauseaSymptomBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nausea))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(depression1)
-                        .addComponent(depression2)
-                        .addComponent(depression3)
-                        .addComponent(depression4)
-                        .addComponent(depression5)
-                        .addComponent(depression6)
-                        .addComponent(depression7)
-                        .addComponent(depression8)
-                        .addComponent(depression9)
-                        .addComponent(depression10)
-                        .addComponent(depressionInfo))
-                    .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(depressionYN)
-                        .addComponent(depression)))
+                        .addComponent(depressionInfo)
+                        .addComponent(DepressionSymptomBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(depression))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(anxiety1)
-                        .addComponent(anxiety2)
-                        .addComponent(anxiety3)
-                        .addComponent(anxiety4)
-                        .addComponent(anxiety5)
-                        .addComponent(anxiety6)
-                        .addComponent(anxiety7)
-                        .addComponent(anxiety8)
-                        .addComponent(anxiety9)
-                        .addComponent(anxiety10)
-                        .addComponent(anxietyInfo))
-                    .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(anxietyYN)
-                        .addComponent(anxiety)))
+                        .addComponent(anxietyInfo)
+                        .addComponent(AnxietySymptomBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(anxiety))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(drowsiness1)
-                        .addComponent(drowsiness2)
-                        .addComponent(drowsiness3)
-                        .addComponent(drowsiness4)
-                        .addComponent(drowsiness5)
-                        .addComponent(drowsiness6)
-                        .addComponent(drowsiness7)
-                        .addComponent(drowsiness8)
-                        .addComponent(drowsiness9)
-                        .addComponent(drowsiness10)
-                        .addComponent(drowsinessInfo))
-                    .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(drowsinessYN)
-                        .addComponent(drowsiness)))
+                        .addComponent(drowsinessInfo)
+                        .addComponent(DrowsinessSymptomBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(drowsiness))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(appetite1)
-                        .addComponent(appetite2)
-                        .addComponent(appetite3)
-                        .addComponent(appetite4)
-                        .addComponent(appetite5)
-                        .addComponent(appetite6)
-                        .addComponent(appetite7)
-                        .addComponent(appetite8)
-                        .addComponent(appetite9)
-                        .addComponent(appetite10)
-                        .addComponent(appetiteInfo))
-                    .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(appetiteYN)
-                        .addComponent(appetite)))
+                        .addComponent(appetiteInfo)
+                        .addComponent(AppetiteSymptomBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(appetite))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(wellbeing1)
-                        .addComponent(wellbeing2)
-                        .addComponent(wellbeing3)
-                        .addComponent(wellbeing4)
-                        .addComponent(wellbeing5)
-                        .addComponent(wellbeing6)
-                        .addComponent(wellbeing7)
-                        .addComponent(wellbeing8)
-                        .addComponent(wellbeing9)
-                        .addComponent(wellbeing10)
+                        .addComponent(wellbeing)
                         .addComponent(wellbeingInfo))
-                    .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(wellbeingYN)
-                        .addComponent(wellbeing)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(WellbeingSymptomBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
                 .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(breath1)
-                        .addComponent(breath2)
-                        .addComponent(breath3)
-                        .addComponent(breath4)
-                        .addComponent(breath5)
-                        .addComponent(breath6)
-                        .addComponent(breath7)
-                        .addComponent(breath8)
-                        .addComponent(breath9)
-                        .addComponent(breath10))
-                    .addGroup(painAndSymptomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(breathYN)
                         .addComponent(breath)
-                        .addComponent(breathInfo)))
+                        .addComponent(breathInfo))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painAndSymptomsLayout.createSequentialGroup()
+                        .addComponent(ShortBreathSymptomBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)))
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
-        submitButoon.setText("Submit Pain and Symptom Details");
-
-        messagesPanelP.setBackground(new java.awt.Color(255, 255, 204));
-
-        messagesButtonP.setText("Messages");
-
-        newMessagesInfoP.setText("There are X new messages");
-
-        javax.swing.GroupLayout messagesPanelPLayout = new javax.swing.GroupLayout(messagesPanelP);
-        messagesPanelP.setLayout(messagesPanelPLayout);
-        messagesPanelPLayout.setHorizontalGroup(
-            messagesPanelPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(messagesPanelPLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(messagesButtonP)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(newMessagesInfoP)
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
-        messagesPanelPLayout.setVerticalGroup(
-            messagesPanelPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(messagesPanelPLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(messagesPanelPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(messagesButtonP)
-                    .addComponent(newMessagesInfoP))
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
+        submitButton.setText("Submit Pain and Symptom Details");
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(painAndSymptoms, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                                .addGap(205, 205, 205)
-                                .addComponent(submitButoon)
-                                .addGap(226, 226, 226)))
-                        .addContainerGap())
-                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(databaseP))
-                            .addComponent(messagesPanelP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jInternalFrame1Layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(databaseP)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(logOutP)
-                        .addGap(63, 63, 63))))
+                        .addComponent(logOutP))
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addContainerGap(218, Short.MAX_VALUE)
+                        .addComponent(emergencyP, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(147, 147, 147)))
+                .addGap(63, 63, 63))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(emergencyP, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(210, 210, 210))
+                .addComponent(submitButton)
+                .addGap(259, 259, 259))
+            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                .addGap(256, 256, 256)
+                .addComponent(painAndSymptoms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1033,15 +421,13 @@ public class PatientUI extends javax.swing.JFrame {
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(databaseP, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(logOutP))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(messagesPanelP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(41, 41, 41)
                 .addComponent(emergencyP, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addGap(42, 42, 42)
                 .addComponent(painAndSymptoms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(submitButoon)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(submitButton)
+                .addContainerGap(880, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1052,16 +438,128 @@ public class PatientUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jInternalFrame1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    // Event Listener for the emergency button
     private void emergencyPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emergencyPActionPerformed
-        // TODO add your handling code here:
+        
+        JOptionPane.showMessageDialog(null, "911 has been contacted, Help is on the way!");
     }//GEN-LAST:event_emergencyPActionPerformed
 
+    private void logOutPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutPActionPerformed
+        JOptionPane.showMessageDialog(null, "You have succesfully logged out!");
+    	new LogInUI().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_logOutPActionPerformed
+
+    private void databasePActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_databasePActionPerformed
+        new PatientDatabseUI().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_databasePActionPerformed
+
+    private void PainSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PainSymptomBoxActionPerformed
+
+    }//GEN-LAST:event_PainSymptomBoxActionPerformed
+
+    private void TirednessSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TirednessSymptomBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TirednessSymptomBoxActionPerformed
+
+    private void NauseaSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NauseaSymptomBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NauseaSymptomBoxActionPerformed
+
+    private void wellbeingInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wellbeingInfoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_wellbeingInfoActionPerformed
+
+    private void DepressionSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepressionSymptomBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DepressionSymptomBoxActionPerformed
+
+    private void AnxietySymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnxietySymptomBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AnxietySymptomBoxActionPerformed
+
+    private void DrowsinessSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DrowsinessSymptomBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DrowsinessSymptomBoxActionPerformed
+
+    private void AppetiteSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AppetiteSymptomBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AppetiteSymptomBoxActionPerformed
+
+    private void WellbeingSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WellbeingSymptomBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_WellbeingSymptomBoxActionPerformed
+
+    private void ShortBreathSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShortBreathSymptomBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ShortBreathSymptomBoxActionPerformed
+
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+       
+        try{
+        	String name = User.getName();
+            String sql = "Insert into SymptomRatings (name, painlevel, tiredlevel, nausealevel, depressionlevel, anxietylevel, drowsinesslevel, appetitelevel, wellbeinglevel, breathlevel) values (?,?,?,?,?,?,?,?,?,?)";
+            Connection conn = sqliteConnection.dbConnector();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, name);
+            
+            pst.setObject(2, PainSymptomBox.getSelectedItem());
+            pst.setObject(3, TirednessSymptomBox.getSelectedItem());
+            pst.setObject(4, NauseaSymptomBox.getSelectedItem());
+            pst.setObject(5, DepressionSymptomBox.getSelectedItem());
+            pst.setObject(6, AnxietySymptomBox.getSelectedItem());
+            pst.setObject(7, DrowsinessSymptomBox.getSelectedItem());
+            pst.setObject(8, AppetiteSymptomBox.getSelectedItem());
+            pst.setObject(9, WellbeingSymptomBox.getSelectedItem());
+            pst.setObject(10, ShortBreathSymptomBox.getSelectedItem());
+            pst.execute();
+            
+            //Statement stmt = null;
+            //stmt = conn.createStatement();
+            //ResultSet re = stmt.executeQuery("Select * From SymptomRatings;");
+            
+            String sq2 = "select painlevel, tiredlevel, nausealevel, depressionlevel, anxietylevel, drowsinesslevel, appetitelevel, wellbeinglevel, breathlevel from SymptomRatings";
+            pst = conn.prepareStatement(sq2);
+            re = pst.executeQuery();
+            
+            if (re.next()){
+                int pain = re.getInt("painlevel");
+                int tired = re.getInt("tiredlevel");
+                int nausea = re.getInt("nausealevel");
+                int depression = re.getInt("depressionlevel");
+                int anxiety = re.getInt("anxietylevel");
+                int drowsiness = re.getInt("drowsinesslevel");
+                int appetite = re.getInt("appetitelevel");
+                int wellbeing = re.getInt("wellbeinglevel");
+                int breath = re.getInt("breathlevel");
+                
+                User patient = new User();
+                
+                JOptionPane.showMessageDialog(null, "Symptoms Submitted");
+                //JOptionPane.showMessageDialog(null, patient.calcPatientPriority(pain, tired, nausea, depression, anxiety, drowsiness, appetite, wellbeing, breath));
+            }
+            
+            //JOptionPane.showMessageDialog(null, "Symptoms Submitted");
+            
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_submitButtonActionPerformed
+
+    // Event Listener for the messages button
+    private void messageActionPerformed(java.awt.event.ActionEvent evt) {
+        new MessagesUI().setVisible(true);
+        this.setVisible(false);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -1100,145 +598,50 @@ public class PatientUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup AnxietySeverity;
+    private javax.swing.JComboBox AnxietySymptomBox;
     private javax.swing.ButtonGroup AppetiteSeverity;
+    private javax.swing.JComboBox AppetiteSymptomBox;
     private javax.swing.ButtonGroup BreathSeverity;
     private javax.swing.ButtonGroup DepressionSeverity;
+    private javax.swing.JComboBox DepressionSymptomBox;
     private javax.swing.ButtonGroup DrowsinessSeverity;
+    private javax.swing.JComboBox DrowsinessSymptomBox;
     private javax.swing.ButtonGroup NauseaSeverity;
+    private javax.swing.JComboBox NauseaSymptomBox;
     private javax.swing.ButtonGroup PainSeverity;
+    private javax.swing.JComboBox PainSymptomBox;
+    private javax.swing.JComboBox ShortBreathSymptomBox;
     private javax.swing.ButtonGroup TirednessSeverity;
+    private javax.swing.JComboBox TirednessSymptomBox;
     private javax.swing.ButtonGroup WellbeingSeverity;
+    private javax.swing.JComboBox WellbeingSymptomBox;
     private javax.swing.JLabel anxiety;
-    private javax.swing.JRadioButton anxiety1;
-    private javax.swing.JRadioButton anxiety10;
-    private javax.swing.JRadioButton anxiety2;
-    private javax.swing.JRadioButton anxiety3;
-    private javax.swing.JRadioButton anxiety4;
-    private javax.swing.JRadioButton anxiety5;
-    private javax.swing.JRadioButton anxiety6;
-    private javax.swing.JRadioButton anxiety7;
-    private javax.swing.JRadioButton anxiety8;
-    private javax.swing.JRadioButton anxiety9;
     private javax.swing.JButton anxietyInfo;
-    private javax.swing.JCheckBox anxietyYN;
     private javax.swing.JLabel appetite;
-    private javax.swing.JRadioButton appetite1;
-    private javax.swing.JRadioButton appetite10;
-    private javax.swing.JRadioButton appetite2;
-    private javax.swing.JRadioButton appetite3;
-    private javax.swing.JRadioButton appetite4;
-    private javax.swing.JRadioButton appetite5;
-    private javax.swing.JRadioButton appetite6;
-    private javax.swing.JRadioButton appetite7;
-    private javax.swing.JRadioButton appetite8;
-    private javax.swing.JRadioButton appetite9;
     private javax.swing.JButton appetiteInfo;
-    private javax.swing.JCheckBox appetiteYN;
     private javax.swing.JLabel breath;
-    private javax.swing.JRadioButton breath1;
-    private javax.swing.JRadioButton breath10;
-    private javax.swing.JRadioButton breath2;
-    private javax.swing.JRadioButton breath3;
-    private javax.swing.JRadioButton breath4;
-    private javax.swing.JRadioButton breath5;
-    private javax.swing.JRadioButton breath6;
-    private javax.swing.JRadioButton breath7;
-    private javax.swing.JRadioButton breath8;
-    private javax.swing.JRadioButton breath9;
     private javax.swing.JButton breathInfo;
-    private javax.swing.JCheckBox breathYN;
     private javax.swing.JButton databaseP;
     private javax.swing.JLabel depression;
-    private javax.swing.JRadioButton depression1;
-    private javax.swing.JRadioButton depression10;
-    private javax.swing.JRadioButton depression2;
-    private javax.swing.JRadioButton depression3;
-    private javax.swing.JRadioButton depression4;
-    private javax.swing.JRadioButton depression5;
-    private javax.swing.JRadioButton depression6;
-    private javax.swing.JRadioButton depression7;
-    private javax.swing.JRadioButton depression8;
-    private javax.swing.JRadioButton depression9;
     private javax.swing.JButton depressionInfo;
-    private javax.swing.JCheckBox depressionYN;
     private javax.swing.JLabel drowsiness;
-    private javax.swing.JRadioButton drowsiness1;
-    private javax.swing.JRadioButton drowsiness10;
-    private javax.swing.JRadioButton drowsiness2;
-    private javax.swing.JRadioButton drowsiness3;
-    private javax.swing.JRadioButton drowsiness4;
-    private javax.swing.JRadioButton drowsiness5;
-    private javax.swing.JRadioButton drowsiness6;
-    private javax.swing.JRadioButton drowsiness7;
-    private javax.swing.JRadioButton drowsiness8;
-    private javax.swing.JRadioButton drowsiness9;
     private javax.swing.JButton drowsinessInfo;
-    private javax.swing.JCheckBox drowsinessYN;
     private javax.swing.JButton emergencyP;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JButton logOutP;
-    private javax.swing.JButton messagesButtonP;
-    private javax.swing.JPanel messagesPanelP;
     private javax.swing.JLabel nausea;
-    private javax.swing.JRadioButton nausea1;
-    private javax.swing.JRadioButton nausea10;
-    private javax.swing.JRadioButton nausea2;
-    private javax.swing.JRadioButton nausea3;
-    private javax.swing.JRadioButton nausea4;
-    private javax.swing.JRadioButton nausea5;
-    private javax.swing.JRadioButton nausea6;
-    private javax.swing.JRadioButton nausea7;
-    private javax.swing.JRadioButton nausea8;
-    private javax.swing.JRadioButton nausea9;
     private javax.swing.JButton nauseaInfo;
-    private javax.swing.JCheckBox nauseaYN;
-    private javax.swing.JLabel newMessagesInfoP;
     private javax.swing.JLabel pain;
-    private javax.swing.JRadioButton pain1;
-    private javax.swing.JRadioButton pain10;
-    private javax.swing.JRadioButton pain2;
-    private javax.swing.JRadioButton pain3;
-    private javax.swing.JRadioButton pain4;
-    private javax.swing.JRadioButton pain5;
-    private javax.swing.JRadioButton pain6;
-    private javax.swing.JRadioButton pain7;
-    private javax.swing.JRadioButton pain8;
-    private javax.swing.JRadioButton pain9;
     private javax.swing.JPanel painAndSymptoms;
     private javax.swing.JButton painInfo;
-    private javax.swing.JCheckBox painYN;
     private javax.swing.JPanel severity;
     private javax.swing.JLabel severityLabel;
-    private javax.swing.JButton submitButoon;
+    private javax.swing.JButton submitButton;
     private javax.swing.JPanel symptoms;
     private javax.swing.JLabel symptomsLabel;
     private javax.swing.JLabel tiredness;
-    private javax.swing.JRadioButton tiredness1;
-    private javax.swing.JRadioButton tiredness10;
-    private javax.swing.JRadioButton tiredness2;
-    private javax.swing.JRadioButton tiredness3;
-    private javax.swing.JRadioButton tiredness4;
-    private javax.swing.JRadioButton tiredness5;
-    private javax.swing.JRadioButton tiredness6;
-    private javax.swing.JRadioButton tiredness7;
-    private javax.swing.JRadioButton tiredness8;
-    private javax.swing.JRadioButton tiredness9;
     private javax.swing.JButton tirednessInfo;
-    private javax.swing.JCheckBox tirednessYN;
     private javax.swing.JLabel wellbeing;
-    private javax.swing.JRadioButton wellbeing1;
-    private javax.swing.JRadioButton wellbeing10;
-    private javax.swing.JRadioButton wellbeing2;
-    private javax.swing.JRadioButton wellbeing3;
-    private javax.swing.JRadioButton wellbeing4;
-    private javax.swing.JRadioButton wellbeing5;
-    private javax.swing.JRadioButton wellbeing6;
-    private javax.swing.JRadioButton wellbeing7;
-    private javax.swing.JRadioButton wellbeing8;
-    private javax.swing.JRadioButton wellbeing9;
     private javax.swing.JButton wellbeingInfo;
-    private javax.swing.JCheckBox wellbeingYN;
-    private javax.swing.JPanel yesNo;
-    private javax.swing.JLabel yesNoLabel;
     // End of variables declaration//GEN-END:variables
 }
