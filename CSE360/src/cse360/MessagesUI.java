@@ -5,6 +5,11 @@
  */
 package cse360;
 
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,11 +18,36 @@ import javax.swing.JOptionPane;
  */
 public class MessagesUI extends javax.swing.JFrame {
 
+    int currentMCount = 0;
     /**
      * Creates new form MessagesUI
      */
     public MessagesUI() {
         initComponents();
+        try{
+            String recieve = User.getUsername();
+            String sql = "SELECT * FROM Messages";
+            Connection conn = sqliteConnection.dbConnector();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next())
+            {
+                String from = rs.getString("Sender");
+                String subject = rs.getString("Subject");
+                String to = rs.getString("Recieve");
+                if(recieve.equals(to))
+                {
+                    messagesTable.setValueAt(subject, currentMCount, 1);
+                    messagesTable.setValueAt(from, currentMCount, 0);
+                    currentMCount++;
+                }
+            }
+            currentMCount = 0;
+            conn.close();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     /**
@@ -44,6 +74,8 @@ public class MessagesUI extends javax.swing.JFrame {
         composeMessageArea = new javax.swing.JEditorPane();
         sendButton = new javax.swing.JButton();
         sendmessageLabel = new javax.swing.JLabel();
+        deleteButton = new javax.swing.JButton();
+        refreshButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,54 +84,74 @@ public class MessagesUI extends javax.swing.JFrame {
         backButtonM.setText("<< Back");
         backButtonM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backActionPerformed(evt);
+                backButtonMActionPerformed(evt);
             }
         });
 
-        
         messagesLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         messagesLabel.setText("Messages");
 
         messagesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"", null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Name", "Date", "Subject"
+                "From", "Subject"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         messagesTable.setColumnSelectionAllowed(true);
+        messagesTable.getTableHeader().setReorderingAllowed(false);
+        messagesTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                messagesTableMouseClicked(evt);
+            }
+        });
         messagesInbox.setViewportView(messagesTable);
-        messagesTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        messagesTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         sendMessagePanel.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -117,7 +169,6 @@ public class MessagesUI extends javax.swing.JFrame {
                 sendButtonActionPerformed(evt);
             }
         });
-
 
         javax.swing.GroupLayout sendMessagePanelLayout = new javax.swing.GroupLayout(sendMessagePanel);
         sendMessagePanel.setLayout(sendMessagePanelLayout);
@@ -163,6 +214,20 @@ public class MessagesUI extends javax.swing.JFrame {
         sendmessageLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         sendmessageLabel.setText("Send Message");
 
+        deleteButton.setText("Delete Currently Selected Message");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
+        refreshButton.setText("Refresh");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
@@ -170,12 +235,20 @@ public class MessagesUI extends javax.swing.JFrame {
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sendMessagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(backButtonM)
-                    .addComponent(messagesLabel)
-                    .addComponent(sendmessageLabel)
-                    .addComponent(messagesInbox, javax.swing.GroupLayout.PREFERRED_SIZE, 914, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sendMessagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(backButtonM)
+                            .addComponent(sendmessageLabel)
+                            .addComponent(messagesInbox, javax.swing.GroupLayout.PREFERRED_SIZE, 914, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(28, Short.MAX_VALUE))
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(messagesLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(refreshButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteButton)
+                        .addGap(58, 58, 58))))
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,14 +256,17 @@ public class MessagesUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(backButtonM)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(messagesLabel)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(messagesLabel)
+                    .addComponent(refreshButton)
+                    .addComponent(deleteButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(messagesInbox, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(sendmessageLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(sendMessagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -206,10 +282,178 @@ public class MessagesUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    	JOptionPane.showMessageDialog(null, "Message Sent!");
-    }	
+
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        try{
+            String recieve = User.getUsername();
+            String sql = "SELECT * FROM Messages";
+            Connection conn = sqliteConnection.dbConnector();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next())
+            {
+                String from = rs.getString("Sender");
+                String subject = rs.getString("Subject");
+                String to = rs.getString("Recieve");
+                if(recieve.equals(to))
+                {
+                    messagesTable.setValueAt(subject, currentMCount, 1);
+                    messagesTable.setValueAt(from, currentMCount, 0);
+                    currentMCount++;
+                }
+            }
+            while(currentMCount < 30)
+            {
+                messagesTable.setValueAt("", currentMCount, 1);
+                messagesTable.setValueAt("", currentMCount, 0);
+                currentMCount++;
+            }
+            currentMCount = 0;
+            conn.close();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_refreshButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        try{
+            if(messagesTable.getSelectedRow() != -1)
+            {
+                String from = (String) messagesTable.getValueAt(messagesTable.getSelectedRow(), 0);
+                String subject = (String) messagesTable.getValueAt(messagesTable.getSelectedRow(), 1);
+                String sql = "SELECT * FROM Messages";
+                Connection conn = sqliteConnection.dbConnector();
+                PreparedStatement pst = conn.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+                while(rs.next())
+                {
+                    String recieve = rs.getString("Recieve");
+                    String Cf = rs.getString("Sender");
+                    String Cs = rs.getString("Subject");
+                    String message = rs.getString("Message");
+                    if(from.equals(Cf) && subject.equals(Cs) && recieve.equals(User.getUsername()))
+                    {
+                        sql = "DELETE from Messages WHERE Recieve=? AND Sender=? AND Subject=? AND Message=?";
+                        pst = conn.prepareStatement(sql);
+
+                        pst.setString(1, User.getUsername());
+                        pst.setString(2, from);
+                        pst.setString(3, subject);
+                        pst.setString(4, message);
+                        pst.execute();
+                        
+                        sql = "SELECT * FROM Messages";
+                        pst = conn.prepareStatement(sql);
+                        rs = pst.executeQuery();
+                        
+                        while(rs.next())
+                        {
+                            from = rs.getString("Sender");
+                            subject = rs.getString("Subject");
+                            String to = rs.getString("Recieve");
+                            if(recieve.equals(to))
+                            {
+                                messagesTable.setValueAt(subject, currentMCount, 1);
+                                messagesTable.setValueAt(from, currentMCount, 0);
+                                currentMCount++;
+                            }
+                        }
+                        while(currentMCount < 30)
+                        {
+                            messagesTable.setValueAt("", currentMCount, 1);
+                            messagesTable.setValueAt("", currentMCount, 0);
+                            currentMCount++;
+                        }
+                        currentMCount = 0;
+
+                        JOptionPane.showMessageDialog(null, "Message deleted.");
+                        conn.close();
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Please select a message first.");
+            }
+            
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
+        try{
+            String sql = "Insert into Messages (Recieve, Sender, Subject, Message) values (?,?,?,?)";
+            Connection conn = sqliteConnection.dbConnector();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, toEntry.getText());
+            pst.setString(2, User.getUsername());
+            pst.setString(3, subjectEntry.getText());
+            pst.setString(4, composeMessageArea.getText());
+            pst.execute();
+
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Message Sent!");
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_sendButtonActionPerformed
+
+    private void messagesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_messagesTableMouseClicked
+        try{
+            String from = (String) messagesTable.getValueAt(messagesTable.getSelectedRow(), 0);
+            String subject = (String) messagesTable.getValueAt(messagesTable.getSelectedRow(), 1);
+            if(from == null || subject == null)
+            {
+                return;
+            }
+            else
+            {
+                
+                String sql = "SELECT * FROM Messages";
+                Connection conn = sqliteConnection.dbConnector();
+                PreparedStatement pst = conn.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+                while(rs.next())
+                {
+                    String recieve = rs.getString("Recieve");
+                    String Cf = rs.getString("Sender");
+                    String Cs = rs.getString("Subject");
+                    String message = rs.getString("Message");
+                    if(from.equals(Cf) && subject.equals(Cs) && recieve.equals(User.getUsername()))
+                    {
+                        new MessageDisplay(from, subject, message).setVisible(true);
+                        conn.close();
+                        return;
+                    }
+                }
+            }
+            
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_messagesTableMouseClicked
+
+    private void backButtonMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonMActionPerformed
+        String role = User.getRole();
+
+        if(role.equals("doctor"))
+        {
+            new DoctorUI().setVisible(true);
+            this.dispose();
+        }
+        else if(role.equals("patient"))
+        {
+            new PatientUI().setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_backButtonMActionPerformed
+
     
     private void backActionPerformed(java.awt.event.ActionEvent evt) {
         new PatientUI().setVisible(true);
@@ -255,11 +499,13 @@ public class MessagesUI extends javax.swing.JFrame {
     private javax.swing.JButton backButtonM;
     private javax.swing.JEditorPane composeMessageArea;
     private javax.swing.JScrollPane composeMessagePane;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel message;
     private javax.swing.JScrollPane messagesInbox;
     private javax.swing.JLabel messagesLabel;
     private javax.swing.JTable messagesTable;
+    private javax.swing.JButton refreshButton;
     private javax.swing.JButton sendButton;
     private javax.swing.JPanel sendMessagePanel;
     private javax.swing.JLabel sendmessageLabel;

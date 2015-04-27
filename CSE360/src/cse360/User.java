@@ -1,4 +1,4 @@
-package Classes;
+package cse360;
 import java.sql.*;
 
 import javax.swing.*;
@@ -15,6 +15,7 @@ import javax.swing.*;
 public class User {
 	
 	private static String name;
+        private static String username;
 	private static String role;
 	private double painLevel;
 
@@ -42,6 +43,16 @@ public class User {
 		
 		name = input;
 	}
+        
+        public static String getUsername()
+        {
+                return username;
+        }
+        
+        public static void setUsername(String input)
+        {
+                username = input;
+        }
 	
 	public static String getRole(){
 		

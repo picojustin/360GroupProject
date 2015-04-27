@@ -8,7 +8,7 @@ package cse360;
 import java.sql.*;
 import javax.swing.*;
 import cse360.sqliteConnection;
-import Classes.User;
+import cse360.User;
 
 /**
  *
@@ -24,6 +24,27 @@ public class PatientUI extends javax.swing.JFrame {
      */
     public PatientUI() {
         initComponents();
+        try{
+            int mCount = 0;
+            String recieve = User.getUsername();
+            String sql = "SELECT Recieve FROM Messages";
+            Connection conn = sqliteConnection.dbConnector();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next())
+            {
+                String check = rs.getString("Recieve");
+                if(check.equals(recieve))
+                {
+                    mCount++;
+                }
+            }
+            conn.close();
+            newMessagesInfoD.setText("There are "+mCount+" messages");
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     /**
@@ -81,6 +102,10 @@ public class PatientUI extends javax.swing.JFrame {
         WellbeingSymptomBox = new javax.swing.JComboBox();
         ShortBreathSymptomBox = new javax.swing.JComboBox();
         submitButton = new javax.swing.JButton();
+        messagesPanelD = new javax.swing.JPanel();
+        messagesButtonD = new javax.swing.JButton();
+        newMessagesInfoD = new javax.swing.JLabel();
+        refreshButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,7 +169,7 @@ public class PatientUI extends javax.swing.JFrame {
             .addGroup(severityLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(severityLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         severityLayout.setVerticalGroup(
             severityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -389,30 +414,79 @@ public class PatientUI extends javax.swing.JFrame {
             }
         });
 
+        messagesPanelD.setBackground(new java.awt.Color(255, 255, 204));
+
+        messagesButtonD.setText("Messages");
+        messagesButtonD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                messagesButtonDActionPerformed(evt);
+            }
+        });
+
+        newMessagesInfoD.setText("There are 0 messages");
+
+        refreshButton.setText("Refresh");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout messagesPanelDLayout = new javax.swing.GroupLayout(messagesPanelD);
+        messagesPanelD.setLayout(messagesPanelDLayout);
+        messagesPanelDLayout.setHorizontalGroup(
+            messagesPanelDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(messagesPanelDLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(messagesPanelDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(refreshButton)
+                    .addComponent(messagesButtonD))
+                .addGap(18, 18, 18)
+                .addComponent(newMessagesInfoD)
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+        messagesPanelDLayout.setVerticalGroup(
+            messagesPanelDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(messagesPanelDLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(messagesButtonD)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(refreshButton)
+                .addContainerGap())
+            .addGroup(messagesPanelDLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(newMessagesInfoD)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jInternalFrame1Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(databaseP)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(logOutP))
-                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addContainerGap(218, Short.MAX_VALUE)
-                        .addComponent(emergencyP, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(147, 147, 147)))
-                .addGap(63, 63, 63))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(submitButton)
-                .addGap(259, 259, 259))
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(emergencyP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(submitButton)
+                        .addGap(49, 49, 49))
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(painAndSymptoms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(212, 212, 212))
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addGap(256, 256, 256)
-                .addComponent(painAndSymptoms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(65, 65, 65)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(messagesPanelD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(databaseP)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 412, Short.MAX_VALUE)
+                        .addComponent(logOutP)
+                        .addGap(63, 63, 63))))
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,13 +495,15 @@ public class PatientUI extends javax.swing.JFrame {
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(databaseP, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(logOutP))
-                .addGap(41, 41, 41)
+                .addGap(25, 25, 25)
+                .addComponent(messagesPanelD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(emergencyP, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(painAndSymptoms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(submitButton)
-                .addContainerGap(880, Short.MAX_VALUE))
+                .addContainerGap(251, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -438,7 +514,9 @@ public class PatientUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jInternalFrame1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -554,6 +632,35 @@ public class PatientUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
+    private void messagesButtonDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messagesButtonDActionPerformed
+        new MessagesUI().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_messagesButtonDActionPerformed
+
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        try{
+            int mCount = 0;
+            String recieve = User.getUsername();
+            String sql = "SELECT Recieve FROM Messages";
+            Connection conn = sqliteConnection.dbConnector();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next())
+            {
+                String check = rs.getString("Recieve");
+                if(check.equals(recieve))
+                {
+                    mCount++;
+                }
+            }
+            conn.close();
+            newMessagesInfoD.setText("There are "+mCount+" messages");
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_refreshButtonActionPerformed
+
     // Event Listener for the messages button
     private void messageActionPerformed(java.awt.event.ActionEvent evt) {
         new MessagesUI().setVisible(true);
@@ -629,11 +736,15 @@ public class PatientUI extends javax.swing.JFrame {
     private javax.swing.JButton emergencyP;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JButton logOutP;
+    private javax.swing.JButton messagesButtonD;
+    private javax.swing.JPanel messagesPanelD;
     private javax.swing.JLabel nausea;
     private javax.swing.JButton nauseaInfo;
+    private javax.swing.JLabel newMessagesInfoD;
     private javax.swing.JLabel pain;
     private javax.swing.JPanel painAndSymptoms;
     private javax.swing.JButton painInfo;
+    private javax.swing.JButton refreshButton;
     private javax.swing.JPanel severity;
     private javax.swing.JLabel severityLabel;
     private javax.swing.JButton submitButton;

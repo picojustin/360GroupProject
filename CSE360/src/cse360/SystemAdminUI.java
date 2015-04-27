@@ -549,40 +549,40 @@ public class SystemAdminUI extends javax.swing.JFrame {
                 }
             }
             
-            sql = "SELECT firstname, lastname FROM DoctorData";
+            sql = "SELECT username FROM DoctorData";
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
             while(rs.next())
             {
                 String un = rs.getString("username");
-                if(un.equals(jTextField7.getText()))
+                if(un.equals(jTextField8.getText()))
                 {
-                    JOptionPane.showMessageDialog(null, "User already exists. Failed to add.");
+                    sql = "Insert into UserData (firstname,address,birthdate,username,password,age,lastname,email,doctor,role) values (?,?,?,?,?,?,?,?,?,'patient')";
+            
+                    pst = conn.prepareStatement(sql);
+
+                    pst.setString(1, addPatientFN.getText());
+                    pst.setString(2, addPatientHA.getText());
+                    pst.setString(3, addPatientDOB.getText());
+                    pst.setString(4, jTextField7.getText());
+                    pst.setString(5, jPasswordField1.getText());
+                    pst.setString(6, jTextField6.getText());
+                    pst.setString(7, addPatientLN.getText());
+                    pst.setString(8, addPatientE.getText());
+                    pst.setString(9,jTextField8.getText());
+                    pst.execute();
+
+                    JOptionPane.showMessageDialog(null, "Saved");
+                    rs.close();
                     conn.close();
                     return;
                 }
             }
             
             rs.close();
-            
-            sql = "Insert into UserData (firstname,address,birthdate,username,password,age,lastname,email,doctor,role) values (?,?,?,?,?,?,?,?,?,'patient')";
-            
-            pst = conn.prepareStatement(sql);
-            
-            pst.setString(1, addPatientFN.getText());
-            pst.setString(2, addPatientHA.getText());
-            pst.setString(3, addPatientDOB.getText());
-            pst.setString(4, jTextField7.getText());
-            pst.setString(5, jPasswordField1.getText());
-            pst.setString(6, jTextField6.getText());
-            pst.setString(7, addPatientLN.getText());
-            pst.setString(8, addPatientE.getText());
-            pst.setString(9,jTextField8.getText());
-            pst.execute();
-            
-            JOptionPane.showMessageDialog(null, "Saved");
-            
+            JOptionPane.showMessageDialog(null, "Doctor does not exist. Failed to add.");
             conn.close();
+            
         }
         catch(Exception e)
         {
@@ -593,9 +593,23 @@ public class SystemAdminUI extends javax.swing.JFrame {
     // This is the event checker for the add doctor button
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
     	try{
-    		String sql = "Insert into UserName (firstname,address,birthdate,username,password,age,lastname,email,role) values (?,?,?,?,?,?,?,?,doctor)";
-    		Connection conn = sqliteConnection.dbConnector();
-        	PreparedStatement pst = conn.prepareStatement(sql);
+    	        String sql = "SELECT username FROM UserData";
+                Connection conn = sqliteConnection.dbConnector();
+                PreparedStatement pst = conn.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+                while(rs.next())
+                {
+                    String un = rs.getString("username");
+                    if(un.equals(jTextField21.getText()))
+                    {
+                        JOptionPane.showMessageDialog(null, "User already exists. Failed to add.");
+                        conn.close();
+                        return;
+                    }
+                }	
+            
+                sql = "Insert into UserData (firstname,address,birthdate,username,password,age,lastname,email,role) values (?,?,?,?,?,?,?,?,doctor)";
+        	pst = conn.prepareStatement(sql);
         
         	pst.setString(1, jTextField15.getText());
         	pst.setString(2, jTextField18.getText());

@@ -7,7 +7,7 @@ package cse360;
 import java.sql.*;
 
 import net.proteanit.sql.DbUtils;
-import Classes.User;
+import cse360.User;
 
 /**
  *

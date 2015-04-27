@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import net.proteanit.sql.DbUtils;
-import Classes.User;
+import cse360.User;
 
 /**
  *

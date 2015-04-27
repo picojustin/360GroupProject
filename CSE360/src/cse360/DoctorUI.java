@@ -1,11 +1,13 @@
-package cse360;
-
 /*
 / * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package cse360;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +21,27 @@ public class DoctorUI extends javax.swing.JFrame {
      */
     public DoctorUI() {
         initComponents();
+        try{
+            int mCount = 0;
+            String recieve = User.getUsername();
+            String sql = "SELECT Recieve FROM Messages";
+            Connection conn = sqliteConnection.dbConnector();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next())
+            {
+                String check = rs.getString("Recieve");
+                if(check.equals(recieve))
+                {
+                    mCount++;
+                }
+            }
+            conn.close();
+            newMessagesInfoD.setText("There are "+mCount+" messages");
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     /**
@@ -35,6 +58,7 @@ public class DoctorUI extends javax.swing.JFrame {
         messagesPanelD = new javax.swing.JPanel();
         messagesButtonD = new javax.swing.JButton();
         newMessagesInfoD = new javax.swing.JLabel();
+        refreshButton = new javax.swing.JButton();
         logOutD = new javax.swing.JButton();
         viewPatientsD = new javax.swing.JToggleButton();
         recentAlertsLabel = new javax.swing.JLabel();
@@ -46,21 +70,24 @@ public class DoctorUI extends javax.swing.JFrame {
         jInternalFrame1.setVisible(true);
 
         databaseD.setText("Database");
-        databaseD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-             databaseActionPerformed(evt);
-            }
-        });
 
         messagesPanelD.setBackground(new java.awt.Color(255, 255, 204));
 
         messagesButtonD.setText("Messages");
-       /* messagesButtonD.addActionListener(new java.awt.event.ActionListener() {
+        messagesButtonD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-             messageActionPerformed(evt);
+                messagesButtonDActionPerformed(evt);
             }
-        });*/
-        //newMessagesInfoD.setText("There are X new messages");
+        });
+
+        newMessagesInfoD.setText("There are 0 messages");
+
+        refreshButton.setText("Refresh");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout messagesPanelDLayout = new javax.swing.GroupLayout(messagesPanelD);
         messagesPanelD.setLayout(messagesPanelDLayout);
@@ -68,27 +95,28 @@ public class DoctorUI extends javax.swing.JFrame {
             messagesPanelDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(messagesPanelDLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(messagesButtonD)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(messagesPanelDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(messagesButtonD)
+                    .addComponent(refreshButton))
+                .addGap(18, 18, 18)
                 .addComponent(newMessagesInfoD)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         messagesPanelDLayout.setVerticalGroup(
             messagesPanelDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(messagesPanelDLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(messagesPanelDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(messagesButtonD)
-                    .addComponent(newMessagesInfoD))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(messagesButtonD)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(refreshButton)
+                .addContainerGap())
+            .addGroup(messagesPanelDLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(newMessagesInfoD)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         logOutD.setText("Log Out");
-        logOutD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logOutDActionPerformed(evt);
-            }
-        });
 
         viewPatientsD.setText("View Patients");
 
@@ -175,7 +203,7 @@ public class DoctorUI extends javax.swing.JFrame {
                 .addComponent(recentAlertsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(recentAlerts, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -191,6 +219,36 @@ public class DoctorUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void messagesButtonDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messagesButtonDActionPerformed
+        new MessagesUI().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_messagesButtonDActionPerformed
+
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        try{
+            int mCount = 0;
+            String recieve = User.getUsername();
+            String sql = "SELECT Recieve FROM Messages";
+            Connection conn = sqliteConnection.dbConnector();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next())
+            {
+                String check = rs.getString("Recieve");
+                if(check.equals(recieve))
+                {
+                    mCount++;
+                }
+            }
+            conn.close();
+            newMessagesInfoD.setText("There are "+mCount+" messages");
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }//GEN-LAST:event_refreshButtonActionPerformed
 
     // Event Listener for the database button
     private void databaseActionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,6 +314,7 @@ public class DoctorUI extends javax.swing.JFrame {
     private javax.swing.JLabel newMessagesInfoD;
     private javax.swing.JScrollPane recentAlerts;
     private javax.swing.JLabel recentAlertsLabel;
+    private javax.swing.JButton refreshButton;
     private javax.swing.JToggleButton viewPatientsD;
     // End of variables declaration//GEN-END:variables
 }

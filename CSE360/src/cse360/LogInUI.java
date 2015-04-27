@@ -15,7 +15,7 @@ import java.sql.*;
 
 import javax.swing.*;
 
-import Classes.User;
+import cse360.User;
 public class LogInUI extends javax.swing.JFrame {
 ResultSet re = null;
 PreparedStatement pst = null;
@@ -182,18 +182,21 @@ PreparedStatement pst = null;
             
             if(re.next())
             {
+                User.setUsername(re.getString("username"));
                 User.setName(re.getString("firstname"));
                 User.setRole(re.getString("role"));
                 String role = User.getRole();
             	if (role.equals("patient")){
             		JOptionPane.showMessageDialog(null, "Info is correct!");   
             		new PatientUI().setVisible(true);
+                        conn.close();
             		this.dispose();
             	}
             	
                 else if (role.equals("doctor")){
                     JOptionPane.showMessageDialog(null, "Info is correct!");   
                     new DoctorUI().setVisible(true);
+                    conn.close();
                     this.dispose();
                 }
             }
@@ -201,6 +204,7 @@ PreparedStatement pst = null;
             else
             {
                 JOptionPane.showMessageDialog(null, "Info is incorrect!");
+                conn.close();
             }
         }
         catch(Exception e)
