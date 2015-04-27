@@ -46,20 +46,64 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jInternalFrame1.setVisible(true);
-        
-        Connection connection = sqliteConnection.dbConnector();
-        try{
-        	String name = User.getName();
-        	String query="select firstname,lastname,email,age,birthdate from UserData where doctor=?";
-        	PreparedStatement pst = connection.prepareStatement(query);
-			pst.setString(1, name);
-        	ResultSet rs = pst.executeQuery();
-       
-        	patientHistoryTable.setModel(DbUtils.resultSetToTableModel(rs));
-        }
-        catch (Exception e){
-        	e.printStackTrace();
-        }
+
+        patientHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Date", "Type"
+            }
+        ));
         patientHistoryPane.setViewportView(patientHistoryTable);
 
         historyLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -68,7 +112,7 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
         backButtonDD.setText("<< Back");
         backButtonDD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backActionPerformed(evt);
+                backButtonDDActionPerformed(evt);
             }
         });
 
@@ -93,7 +137,7 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-      /*  jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -149,7 +193,7 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
             new String [] {
                 "Name"
             }
-        ));*/
+        ));
         patientListTable.setViewportView(jTable2);
 
         listLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -212,6 +256,11 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backButtonDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonDDActionPerformed
+        new DoctorUI().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backButtonDDActionPerformed
     
     // Event Listener for the back button
     private void backActionPerformed(java.awt.event.ActionEvent evt) {
