@@ -35,10 +35,12 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
             {
                 String fname = rs.getString("firstname");
                 String lname = rs.getString("lastname");
+                String uname = rs.getString("username");
                 String to = rs.getString("doctor");
                 if(un.equals(to))
                 {
                     jTable2.setValueAt(fname + " " + lname, currentACount, 0);
+                    jTable2.setValueAt(uname, currentACount, 1);
                     
                     currentACount++;
                 }
@@ -93,7 +95,7 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
 
         currentPatientPane.setBackground(new java.awt.Color(255, 255, 204));
 
-        currentPatientLabel.setText("Currently Viewing: X");
+        currentPatientLabel.setText("Currently Viewing: None");
 
         javax.swing.GroupLayout currentPatientPaneLayout = new javax.swing.GroupLayout(currentPatientPane);
         currentPatientPane.setLayout(currentPatientPaneLayout);
@@ -114,61 +116,69 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Name"
+                "Name", "Username"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable2MouseClicked(evt);
@@ -233,6 +243,7 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
         });
         alertTable.setColumnSelectionAllowed(true);
         recentAlerts.setViewportView(alertTable);
+        alertTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
@@ -298,7 +309,74 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonDDActionPerformed
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-        // TODO add your handling code here:
+        try{
+            String pName = (String) jTable2.getValueAt(jTable2.getSelectedRow(), 0);
+            String uName = (String) jTable2.getValueAt(jTable2.getSelectedRow(), 1);
+            if(pName == null)
+            {
+                return;
+            }
+            else
+            {
+                
+                String sql = "SELECT * FROM SymptomRatings";
+                Connection conn = sqliteConnection.dbConnector();
+                PreparedStatement pst = conn.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+                while(rs.next())
+                {
+                    String name = rs.getString("name");
+                    String pain = rs.getString("painlevel");
+                    int tired = rs.getInt("tiredlevel");
+                    int nausea = rs.getInt("nausealevel");
+                    int depression = rs.getInt("depressionlevel");
+                    int anxiety = rs.getInt("anxietylevel");
+                    int drowsiness = rs.getInt("drowsinesslevel");
+                    int appetite = rs.getInt("appetitelevel");
+                    int wellbeing = rs.getInt("wellbeinglevel");
+                    int breath = rs.getInt("breathlevel");
+                    String to = rs.getString("doctor");
+                    String pUN = rs.getString("pusername");
+                    if(to.equals(User.getUsername()) && pUN.equals(uName) && name.equals(pName))
+                    {
+                        alertTable.setValueAt(name, currentACount, 0);
+                        alertTable.setValueAt(pain, currentACount, 1);
+                        alertTable.setValueAt(tired, currentACount, 2);
+                        alertTable.setValueAt(nausea, currentACount, 3);
+                        alertTable.setValueAt(depression, currentACount, 4);
+                        alertTable.setValueAt(anxiety, currentACount, 5);
+                        alertTable.setValueAt(drowsiness, currentACount, 6);
+                        alertTable.setValueAt(appetite, currentACount, 7);
+                        alertTable.setValueAt(wellbeing, currentACount, 8);
+                        alertTable.setValueAt(breath, currentACount, 9);
+                    
+                    currentACount++;
+                    }
+                }
+                while(currentACount < 30)
+            {
+                alertTable.setValueAt("", currentACount, 0);
+                alertTable.setValueAt(null, currentACount, 1);
+                alertTable.setValueAt(null, currentACount, 2);
+                alertTable.setValueAt(null, currentACount, 3);
+                alertTable.setValueAt(null, currentACount, 4);
+                alertTable.setValueAt(null, currentACount, 5);
+                alertTable.setValueAt(null, currentACount, 6);
+                alertTable.setValueAt(null, currentACount, 7);
+                alertTable.setValueAt(null, currentACount, 8);
+                alertTable.setValueAt(null, currentACount, 9);
+                
+                currentACount++;
+            }
+            currentACount = 0;
+            currentPatientLabel.setText("Currently Viewing: " + pName);
+            conn.close();
+            }
+            
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_jTable2MouseClicked
     
     // Event Listener for the back button

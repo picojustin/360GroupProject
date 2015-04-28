@@ -181,6 +181,11 @@ public class DoctorUI extends javax.swing.JFrame {
         logOutD.setText("Log Out");
 
         viewPatientsD.setText("View Patients");
+        viewPatientsD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewPatientsDActionPerformed(evt);
+            }
+        });
 
         recentAlertsLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         recentAlertsLabel.setText("Recent Alerts");
@@ -331,6 +336,11 @@ public class DoctorUI extends javax.swing.JFrame {
         new DoctorDatabseUI().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_databaseDActionPerformed
+
+    private void viewPatientsDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPatientsDActionPerformed
+        new DoctorDatabseUI().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_viewPatientsDActionPerformed
     
     /* Event Listener for the messages button. needs some way to track current user
     private void messageActionPerformed(java.awt.event.ActionEvent evt) {

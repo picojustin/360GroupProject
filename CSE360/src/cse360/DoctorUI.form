@@ -171,6 +171,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="View Patients"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewPatientsDActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="recentAlertsLabel">
           <Properties>
