@@ -45,35 +45,29 @@ public class DoctorUI extends javax.swing.JFrame {
         
         try{
             String un = User.getUsername();
-            String sql = "SELECT * FROM SymptomRatings";
+            String sql = "SELECT firstname, lastname, username, email, address, age, birthdate, doctor FROM UserData where alert = 'TRUE'";
             Connection conn = sqliteConnection.dbConnector();
             PreparedStatement pst = conn.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while(rs.next())
             {
-                String name = rs.getString("name");
-                String pain = rs.getString("painlevel");
-                int tired = rs.getInt("tiredlevel");
-                int nausea = rs.getInt("nausealevel");
-                int depression = rs.getInt("depressionlevel");
-                int anxiety = rs.getInt("anxietylevel");
-                int drowsiness = rs.getInt("drowsinesslevel");
-                int appetite = rs.getInt("appetitelevel");
-                int wellbeing = rs.getInt("wellbeinglevel");
-                int breath = rs.getInt("breathlevel");
+                String name = rs.getString("firstname");
+                String pain = rs.getString("lastname");
+                String username = rs.getString("username");
+                String email = rs.getString("email");
+                String address = rs.getString("address");
+                int age = rs.getInt("age");
+                String birthdate = rs.getString("birthdate");
                 String to = rs.getString("doctor");
                 if(un.equals(to))
                 {
                     alertTable.setValueAt(name, currentACount, 0);
                     alertTable.setValueAt(pain, currentACount, 1);
-                    alertTable.setValueAt(tired, currentACount, 2);
-                    alertTable.setValueAt(nausea, currentACount, 3);
-                    alertTable.setValueAt(depression, currentACount, 4);
-                    alertTable.setValueAt(anxiety, currentACount, 5);
-                    alertTable.setValueAt(drowsiness, currentACount, 6);
-                    alertTable.setValueAt(appetite, currentACount, 7);
-                    alertTable.setValueAt(wellbeing, currentACount, 8);
-                    alertTable.setValueAt(breath, currentACount, 9);
+                    alertTable.setValueAt(username, currentACount, 2);
+                    alertTable.setValueAt(email, currentACount, 3);
+                    alertTable.setValueAt(address, currentACount, 4);
+                    alertTable.setValueAt(age, currentACount, 5);
+                    alertTable.setValueAt(birthdate, currentACount, 6);
                     
                     currentACount++;
                 }
@@ -87,9 +81,6 @@ public class DoctorUI extends javax.swing.JFrame {
                 alertTable.setValueAt(null, currentACount, 4);
                 alertTable.setValueAt(null, currentACount, 5);
                 alertTable.setValueAt(null, currentACount, 6);
-                alertTable.setValueAt(null, currentACount, 7);
-                alertTable.setValueAt(null, currentACount, 8);
-                alertTable.setValueAt(null, currentACount, 9);
                 
                 currentACount++;
             }
@@ -179,6 +170,11 @@ public class DoctorUI extends javax.swing.JFrame {
         );
 
         logOutD.setText("Log Out");
+        logOutD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutDActionPerformed(evt);
+            }
+        });
 
         viewPatientsD.setText("View Patients");
         viewPatientsD.addActionListener(new java.awt.event.ActionListener() {
@@ -224,7 +220,7 @@ public class DoctorUI extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Name", "Pain", "Tiredness", "Nausea", "Depression", "Anxiety", "Drowsiness", "Appetite", "Wellbeing", "Breath"
+                "Firstname", "Lastname", "Username", "Email", "Address", "Age", "Birthdate"
             }
         ) {
             Class[] types = new Class [] {

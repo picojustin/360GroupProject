@@ -580,13 +580,13 @@ public class PatientUI extends javax.swing.JFrame {
     }//GEN-LAST:event_ShortBreathSymptomBoxActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-       
+        
         try{
-        	String name = User.getName();
             String sql = "Insert into SymptomRatings (name, painlevel, tiredlevel, nausealevel, depressionlevel, anxietylevel, drowsinesslevel, appetitelevel, wellbeinglevel, breathlevel, doctor, pusername) values (?,?,?,?,?,?,?,?,?,?,?,?)";
             Connection conn = sqliteConnection.dbConnector();
             PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, name);
+            //JOptionPane.showMessageDialog(null, name);
+            pst.setString(1, User.getName());
             
             pst.setObject(2, PainSymptomBox.getSelectedItem());
             pst.setObject(3, TirednessSymptomBox.getSelectedItem());
@@ -605,7 +605,8 @@ public class PatientUI extends javax.swing.JFrame {
             //stmt = conn.createStatement();
             //ResultSet re = stmt.executeQuery("Select * From SymptomRatings;");
             
-            String sq2 = "select painlevel, tiredlevel, nausealevel, depressionlevel, anxietylevel, drowsinesslevel, appetitelevel, wellbeinglevel, breathlevel from SymptomRatings";
+            String sq2 = "select * from SymptomRatings order by rowid DESC";
+           
             pst = conn.prepareStatement(sq2);
             re = pst.executeQuery();
             
@@ -620,14 +621,24 @@ public class PatientUI extends javax.swing.JFrame {
                 int wellbeing = re.getInt("wellbeinglevel");
                 int breath = re.getInt("breathlevel");
                 
-                User patient = new User();
+                double rating = User.calcPatientPriority(pain, tired, nausea, depression, anxiety, drowsiness, appetite, wellbeing, breath);
                 
                 JOptionPane.showMessageDialog(null, "Symptoms Submitted");
-                //JOptionPane.showMessageDialog(null, patient.calcPatientPriority(pain, tired, nausea, depression, anxiety, drowsiness, appetite, wellbeing, breath));
+                
+                if (rating > 5){
+                	sql = "Update UserData set alert = 'TRUE' WHERE username=?";
+                	pst = conn.prepareStatement(sql);
+                        pst.setObject(1, User.getUsername());
+                	pst.execute();
+                }
+                else{
+                	sql = "Update UserData set alert = 'FALSE' WHERE username=?";
+                	pst = conn.prepareStatement(sql);
+                        pst.setObject(1, User.getUsername());
+                	pst.execute();
+                }
             }
-            
-            //JOptionPane.showMessageDialog(null, "Symptoms Submitted");
-            
+            conn.close();
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
