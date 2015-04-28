@@ -17,6 +17,7 @@ public class User {
 	private static String name;
         private static String username;
 	private static String role;
+        private static String doctor;
 	private double painLevel;
 
 	// The constructors may not be neccessary if all information
@@ -34,7 +35,15 @@ public class User {
 		this.role = "NULL";
 	}
 	
-	public static String getName(){
+	public static String getDoctor(){
+            return doctor;
+        }
+        
+        public static void setDoctor(String d){
+            doctor = d;
+        }
+        
+        public static String getName(){
 		
 		return name;
 	}

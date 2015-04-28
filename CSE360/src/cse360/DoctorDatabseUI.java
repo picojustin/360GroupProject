@@ -8,6 +8,7 @@ import java.sql.*;
 
 import net.proteanit.sql.DbUtils;
 import cse360.User;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,12 +16,45 @@ import cse360.User;
  */
 public class DoctorDatabseUI extends javax.swing.JFrame {
 
+    int pCount = 0;
+    int currentACount = 0;
+    
     /**
      * Creates new form DoctorDatabseUI
      */
     public DoctorDatabseUI() {
         initComponents();
         
+        try{
+            String un = User.getUsername();
+            String sql = "SELECT * FROM UserData";
+            Connection conn = sqliteConnection.dbConnector();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next())
+            {
+                String fname = rs.getString("firstname");
+                String lname = rs.getString("lastname");
+                String to = rs.getString("doctor");
+                if(un.equals(to))
+                {
+                    jTable2.setValueAt(fname + " " + lname, currentACount, 0);
+                    
+                    currentACount++;
+                }
+            }
+            while(currentACount < 30)
+            {
+                jTable2.setValueAt("", currentACount, 0);
+                
+                currentACount++;
+            }
+            currentACount = 0;
+            conn.close();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     /**
@@ -33,8 +67,6 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jInternalFrame1 = new javax.swing.JInternalFrame();
-        patientHistoryPane = new javax.swing.JScrollPane();
-        patientHistoryTable = new javax.swing.JTable();
         historyLabel = new javax.swing.JLabel();
         backButtonDD = new javax.swing.JButton();
         currentPatientPane = new javax.swing.JPanel();
@@ -42,69 +74,12 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
         patientListTable = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         listLabel = new javax.swing.JLabel();
+        recentAlerts = new javax.swing.JScrollPane();
+        alertTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jInternalFrame1.setVisible(true);
-
-        patientHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Date", "Type"
-            }
-        ));
-        patientHistoryPane.setViewportView(patientHistoryTable);
 
         historyLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         historyLabel.setText("Patient History");
@@ -127,7 +102,7 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
             .addGroup(currentPatientPaneLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(currentPatientLabel)
-                .addContainerGap(544, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         currentPatientPaneLayout.setVerticalGroup(
             currentPatientPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,10 +169,70 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
                 "Name"
             }
         ));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         patientListTable.setViewportView(jTable2);
 
         listLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         listLabel.setText("Patient List");
+
+        alertTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Name", "Pain", "Tiredness", "Nausea", "Depression", "Anxiety", "Drowsiness", "Appetite", "Wellbeing", "Breath"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        alertTable.setColumnSelectionAllowed(true);
+        recentAlerts.setViewportView(alertTable);
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
@@ -213,16 +248,16 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(patientListTable, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(listLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                                .addComponent(currentPatientPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(31, Short.MAX_VALUE))
+                                .addComponent(historyLabel)
+                                .addGap(0, 530, Short.MAX_VALUE))
                             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(historyLabel)
-                                    .addComponent(patientHistoryPane, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))))
+                                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(recentAlerts, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+                                    .addComponent(currentPatientPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,9 +272,9 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
                         .addComponent(currentPatientPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(patientHistoryPane, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))
-                    .addComponent(patientListTable))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(recentAlerts))
+                    .addComponent(patientListTable, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -261,6 +296,10 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
         new DoctorUI().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonDDActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable2MouseClicked
     
     // Event Listener for the back button
     private void backActionPerformed(java.awt.event.ActionEvent evt) {
@@ -304,6 +343,7 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable alertTable;
     private javax.swing.JButton backButtonDD;
     private javax.swing.JLabel currentPatientLabel;
     private javax.swing.JPanel currentPatientPane;
@@ -311,8 +351,7 @@ public class DoctorDatabseUI extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel listLabel;
-    private javax.swing.JScrollPane patientHistoryPane;
-    private javax.swing.JTable patientHistoryTable;
     private javax.swing.JScrollPane patientListTable;
+    private javax.swing.JScrollPane recentAlerts;
     // End of variables declaration//GEN-END:variables
 }

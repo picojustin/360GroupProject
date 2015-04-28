@@ -583,7 +583,7 @@ public class PatientUI extends javax.swing.JFrame {
        
         try{
         	String name = User.getName();
-            String sql = "Insert into SymptomRatings (name, painlevel, tiredlevel, nausealevel, depressionlevel, anxietylevel, drowsinesslevel, appetitelevel, wellbeinglevel, breathlevel) values (?,?,?,?,?,?,?,?,?,?)";
+            String sql = "Insert into SymptomRatings (name, painlevel, tiredlevel, nausealevel, depressionlevel, anxietylevel, drowsinesslevel, appetitelevel, wellbeinglevel, breathlevel, doctor, pusername) values (?,?,?,?,?,?,?,?,?,?,?,?)";
             Connection conn = sqliteConnection.dbConnector();
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, name);
@@ -597,6 +597,8 @@ public class PatientUI extends javax.swing.JFrame {
             pst.setObject(8, AppetiteSymptomBox.getSelectedItem());
             pst.setObject(9, WellbeingSymptomBox.getSelectedItem());
             pst.setObject(10, ShortBreathSymptomBox.getSelectedItem());
+            pst.setObject(11, User.getDoctor());
+            pst.setObject(12, User.getUsername());
             pst.execute();
             
             //Statement stmt = null;

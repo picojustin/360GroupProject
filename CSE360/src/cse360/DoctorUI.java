@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class DoctorUI extends javax.swing.JFrame {
 
+    int currentACount = 0;
     /**
      * Creates new form NewJFrame1
      */
@@ -36,8 +37,64 @@ public class DoctorUI extends javax.swing.JFrame {
                     mCount++;
                 }
             }
-            conn.close();
             newMessagesInfoD.setText("There are "+mCount+" messages");
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        try{
+            String un = User.getUsername();
+            String sql = "SELECT * FROM SymptomRatings";
+            Connection conn = sqliteConnection.dbConnector();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next())
+            {
+                String name = rs.getString("name");
+                String pain = rs.getString("painlevel");
+                int tired = rs.getInt("tiredlevel");
+                int nausea = rs.getInt("nausealevel");
+                int depression = rs.getInt("depressionlevel");
+                int anxiety = rs.getInt("anxietylevel");
+                int drowsiness = rs.getInt("drowsinesslevel");
+                int appetite = rs.getInt("appetitelevel");
+                int wellbeing = rs.getInt("wellbeinglevel");
+                int breath = rs.getInt("breathlevel");
+                String to = rs.getString("doctor");
+                if(un.equals(to))
+                {
+                    alertTable.setValueAt(name, currentACount, 0);
+                    alertTable.setValueAt(pain, currentACount, 1);
+                    alertTable.setValueAt(tired, currentACount, 2);
+                    alertTable.setValueAt(nausea, currentACount, 3);
+                    alertTable.setValueAt(depression, currentACount, 4);
+                    alertTable.setValueAt(anxiety, currentACount, 5);
+                    alertTable.setValueAt(drowsiness, currentACount, 6);
+                    alertTable.setValueAt(appetite, currentACount, 7);
+                    alertTable.setValueAt(wellbeing, currentACount, 8);
+                    alertTable.setValueAt(breath, currentACount, 9);
+                    
+                    currentACount++;
+                }
+            }
+            while(currentACount < 30)
+            {
+                alertTable.setValueAt("", currentACount, 0);
+                alertTable.setValueAt(null, currentACount, 1);
+                alertTable.setValueAt(null, currentACount, 2);
+                alertTable.setValueAt(null, currentACount, 3);
+                alertTable.setValueAt(null, currentACount, 4);
+                alertTable.setValueAt(null, currentACount, 5);
+                alertTable.setValueAt(null, currentACount, 6);
+                alertTable.setValueAt(null, currentACount, 7);
+                alertTable.setValueAt(null, currentACount, 8);
+                alertTable.setValueAt(null, currentACount, 9);
+                
+                currentACount++;
+            }
+            currentACount = 0;
+            conn.close();
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
@@ -70,6 +127,11 @@ public class DoctorUI extends javax.swing.JFrame {
         jInternalFrame1.setVisible(true);
 
         databaseD.setText("Database");
+        databaseD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                databaseDActionPerformed(evt);
+            }
+        });
 
         messagesPanelD.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -125,41 +187,56 @@ public class DoctorUI extends javax.swing.JFrame {
 
         alertTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"", null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Name", "Date", "Type"
+                "Name", "Pain", "Tiredness", "Nausea", "Depression", "Anxiety", "Drowsiness", "Appetite", "Wellbeing", "Breath"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         alertTable.setColumnSelectionAllowed(true);
         recentAlerts.setViewportView(alertTable);
         alertTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -250,11 +327,10 @@ public class DoctorUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_refreshButtonActionPerformed
 
-    // Event Listener for the database button
-    private void databaseActionPerformed(java.awt.event.ActionEvent evt) {
+    private void databaseDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_databaseDActionPerformed
         new DoctorDatabseUI().setVisible(true);
         this.setVisible(false);
-    }
+    }//GEN-LAST:event_databaseDActionPerformed
     
     /* Event Listener for the messages button. needs some way to track current user
     private void messageActionPerformed(java.awt.event.ActionEvent evt) {

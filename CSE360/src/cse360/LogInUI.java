@@ -182,8 +182,9 @@ PreparedStatement pst = null;
             
             if(re.next())
             {
+                User.setDoctor(re.getString("doctor"));
                 User.setUsername(re.getString("username"));
-                User.setName(re.getString("firstname"));
+                User.setName(re.getString("firstname") + " " + re.getString("lastname"));
                 User.setRole(re.getString("role"));
                 String role = User.getRole();
             	if (role.equals("patient")){
