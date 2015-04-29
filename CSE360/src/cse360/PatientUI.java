@@ -198,18 +198,53 @@ public class PatientUI extends javax.swing.JFrame {
         breath.setText("Shortness of Breath");
 
         painInfo.setText("?");
+        painInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                painInfoActionPerformed(evt);
+            }
+        });
 
         tirednessInfo.setText("?");
+        tirednessInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tirednessInfoActionPerformed(evt);
+            }
+        });
 
         nauseaInfo.setText("?");
+        nauseaInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nauseaInfoActionPerformed(evt);
+            }
+        });
 
         depressionInfo.setText("?");
+        depressionInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                depressionInfoActionPerformed(evt);
+            }
+        });
 
         anxietyInfo.setText("?");
+        anxietyInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anxietyInfoActionPerformed(evt);
+            }
+        });
 
         drowsinessInfo.setText("?");
+        drowsinessInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drowsinessInfoActionPerformed(evt);
+            }
+        });
 
         appetiteInfo.setText("?");
+        appetiteInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                appetiteInfoActionPerformed(evt);
+            }
+        });
 
         wellbeingInfo.setText("?");
         wellbeingInfo.addActionListener(new java.awt.event.ActionListener() {
@@ -219,6 +254,11 @@ public class PatientUI extends javax.swing.JFrame {
         });
 
         breathInfo.setText("?");
+        breathInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                breathInfoActionPerformed(evt);
+            }
+        });
 
         PainSymptomBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         PainSymptomBox.addActionListener(new java.awt.event.ActionListener() {
@@ -466,15 +506,17 @@ public class PatientUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(emergencyP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(submitButton)
-                        .addGap(49, 49, 49))
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(painAndSymptoms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(emergencyP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                                .addComponent(submitButton)
+                                .addGap(49, 49, 49)))))
                 .addGap(212, 212, 212))
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
@@ -503,7 +545,7 @@ public class PatientUI extends javax.swing.JFrame {
                 .addComponent(painAndSymptoms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(submitButton)
-                .addContainerGap(251, Short.MAX_VALUE))
+                .addContainerGap(255, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -540,43 +582,43 @@ public class PatientUI extends javax.swing.JFrame {
     }//GEN-LAST:event_databasePActionPerformed
 
     private void PainSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PainSymptomBoxActionPerformed
-
+        
     }//GEN-LAST:event_PainSymptomBoxActionPerformed
 
     private void TirednessSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TirednessSymptomBoxActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_TirednessSymptomBoxActionPerformed
 
     private void NauseaSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NauseaSymptomBoxActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_NauseaSymptomBoxActionPerformed
 
     private void wellbeingInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wellbeingInfoActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "The feeling of being of good health. Feeling like you could go on a run.");
     }//GEN-LAST:event_wellbeingInfoActionPerformed
 
     private void DepressionSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepressionSymptomBoxActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_DepressionSymptomBoxActionPerformed
 
     private void AnxietySymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnxietySymptomBoxActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_AnxietySymptomBoxActionPerformed
 
     private void DrowsinessSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DrowsinessSymptomBoxActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_DrowsinessSymptomBoxActionPerformed
 
     private void AppetiteSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AppetiteSymptomBoxActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_AppetiteSymptomBoxActionPerformed
 
     private void WellbeingSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WellbeingSymptomBoxActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_WellbeingSymptomBoxActionPerformed
 
     private void ShortBreathSymptomBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShortBreathSymptomBoxActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_ShortBreathSymptomBoxActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
@@ -673,6 +715,38 @@ public class PatientUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_refreshButtonActionPerformed
+
+    private void painInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_painInfoActionPerformed
+        JOptionPane.showMessageDialog(null, "The feeling of having general pain around the body. Feeling bad.");
+    }//GEN-LAST:event_painInfoActionPerformed
+
+    private void tirednessInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tirednessInfoActionPerformed
+        JOptionPane.showMessageDialog(null, "The feeling of having no energy or will to do things.");
+    }//GEN-LAST:event_tirednessInfoActionPerformed
+
+    private void nauseaInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nauseaInfoActionPerformed
+        JOptionPane.showMessageDialog(null, "The feeling of being sick or wanting to throw up.");
+    }//GEN-LAST:event_nauseaInfoActionPerformed
+
+    private void depressionInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depressionInfoActionPerformed
+        JOptionPane.showMessageDialog(null, "The feeling of being sad.");
+    }//GEN-LAST:event_depressionInfoActionPerformed
+
+    private void anxietyInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anxietyInfoActionPerformed
+        JOptionPane.showMessageDialog(null, "The feeling of doom and bad things about to happen.");
+    }//GEN-LAST:event_anxietyInfoActionPerformed
+
+    private void drowsinessInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drowsinessInfoActionPerformed
+        JOptionPane.showMessageDialog(null, "The feeling of being sleepy and not able to stay awake.");
+    }//GEN-LAST:event_drowsinessInfoActionPerformed
+
+    private void appetiteInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appetiteInfoActionPerformed
+        JOptionPane.showMessageDialog(null, "The feeling of having hunger and being able to eat.");
+    }//GEN-LAST:event_appetiteInfoActionPerformed
+
+    private void breathInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_breathInfoActionPerformed
+        JOptionPane.showMessageDialog(null, "The feeling of not being able to breath regularly.");
+    }//GEN-LAST:event_breathInfoActionPerformed
 
     // Event Listener for the messages button
     private void messageActionPerformed(java.awt.event.ActionEvent evt) {

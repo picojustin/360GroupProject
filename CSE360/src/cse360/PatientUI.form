@@ -67,16 +67,20 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="emergencyP" alignment="1" min="-2" pref="312" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="72" max="-2" attributes="0"/>
-                          <Component id="submitButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                           <Component id="painAndSymptoms" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="37" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="emergencyP" alignment="1" min="-2" pref="312" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="submitButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="212" max="-2" attributes="0"/>
@@ -114,7 +118,7 @@
                   <Component id="painAndSymptoms" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Component id="submitButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="251" max="32767" attributes="0"/>
+                  <EmptySpace pref="255" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -443,36 +447,57 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="?"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="painInfoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="tirednessInfo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="?"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tirednessInfoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="nauseaInfo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="?"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nauseaInfoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="depressionInfo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="?"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="depressionInfoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="anxietyInfo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="?"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="anxietyInfoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="drowsinessInfo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="?"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="drowsinessInfoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="appetiteInfo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="?"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="appetiteInfoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="wellbeingInfo">
               <Properties>
@@ -486,6 +511,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="?"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="breathInfoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="PainSymptomBox">
               <Properties>

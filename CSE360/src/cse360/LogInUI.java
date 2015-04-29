@@ -200,6 +200,12 @@ PreparedStatement pst = null;
                     conn.close();
                     this.dispose();
                 }
+                else if(role.equals("admin")){
+                    JOptionPane.showMessageDialog(null, "Info is correct!");   
+                    new SystemAdminUI().setVisible(true);
+                    conn.close();
+                    this.dispose();
+                }
             }
             
             else
