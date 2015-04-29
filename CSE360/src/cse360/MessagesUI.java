@@ -386,17 +386,30 @@ public class MessagesUI extends javax.swing.JFrame {
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
         try{
-            String sql = "Insert into Messages (Recieve, Sender, Subject, Message) values (?,?,?,?)";
+            String sql = "SELECT username FROM UserData";
             Connection conn = sqliteConnection.dbConnector();
             PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, toEntry.getText());
-            pst.setString(2, User.getUsername());
-            pst.setString(3, subjectEntry.getText());
-            pst.setString(4, composeMessageArea.getText());
-            pst.execute();
+            ResultSet rs = pst.executeQuery();
+            while(rs.next())
+            {
+                String check = rs.getString("username");
+                if(check.equals(toEntry.getText()))
+                {
+                    sql = "Insert into Messages (Recieve, Sender, Subject, Message) values (?,?,?,?)";
+                    pst = conn.prepareStatement(sql);
+            
+                    pst.setString(1, toEntry.getText());
+                    pst.setString(2, User.getUsername());
+                    pst.setString(3, subjectEntry.getText());
+                    pst.setString(4, composeMessageArea.getText());
+                    pst.execute();
 
-            conn.close();
-            JOptionPane.showMessageDialog(null, "Message Sent!");
+                    conn.close();
+                    JOptionPane.showMessageDialog(null, "Message Sent!");
+                    return;
+                }
+            }
+            JOptionPane.showMessageDialog(null, "Invalid Username. Does not Exist.");
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
